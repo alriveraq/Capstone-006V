@@ -1,0 +1,25 @@
+.busqueda {
+    padding: 16px;
+  }
+  
+  .noticias {
+    height: 200px; 
+    background-size: cover;
+    margin: 8px 0;
+    border-radius: 10px;
+  }
+  
+  .proyectos {
+    display: flex;
+    overflow-x: auto;
+    padding: 8px;
+  }
+  
+  .proyecto {
+    width: 150px; 
+    height: 100px; 
+    background-size: cover;
+    border-radius: 10px;
+    margin-right: 8px;
+  }
+  

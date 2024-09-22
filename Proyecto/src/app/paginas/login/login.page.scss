@@ -1,0 +1,28 @@
+.banner {
+    height: 218px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+  }
+  
+  .titulo {
+    color: #0e141b;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin: 16px 0 8px;
+  }
+  
+  .botones {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .terminos {
+    color: #4e7397;
+    font-size: 12px;
+    text-align: center;
+    margin: 8px 0;
+  }
+  
