@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LogincomponentComponent } from './paginas/login/logincomponent/logincomponent.component';
 
 const routes: Routes = [
   {
@@ -17,15 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginPageModule)
-  },  {
-    path: 'register',
-    loadChildren: () => import('./paginas/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginModule)
   },
-  {
-    path: 'crear-junta',
-    loadChildren: () => import('./paginas/crear-junta/crear-junta.module').then( m => m.CrearJuntaPageModule)
-  }
 
 
 ];

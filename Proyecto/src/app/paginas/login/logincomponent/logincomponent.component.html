@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="loginform" (ngSubmit)="login()">
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input type="email"  formControlName="u_email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password"  formControlName="u_contrasena"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Iniciar Sesión</ion-button>
+    <div *ngIf="errormessage" style="color: red;">{{ errormessage }}</div>
+  </form>
+</ion-content>
