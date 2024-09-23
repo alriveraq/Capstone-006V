@@ -15,7 +15,11 @@ export class LogincomponentComponent implements OnInit {
   errormessage: string = '';
 
   constructor(
+<<<<<<< HEAD
     //private api: LoginserviceService,
+=======
+    private api: LoginserviceService,
+>>>>>>> 3298823d57b92c91fa6d9cddc441fb144c6d6e97
     private formBuilder: FormBuilder,
     private router: Router,
     private loadingController: LoadingController,
@@ -41,6 +45,7 @@ export class LogincomponentComponent implements OnInit {
       return;
     }
     
+<<<<<<< HEAD
     //const loading = await this.loadingController.create({
       //message: 'Iniciando sesión...',
     //});
@@ -63,3 +68,27 @@ export class LogincomponentComponent implements OnInit {
  }
 
 }
+=======
+    const loading = await this.loadingController.create({
+      message: 'Iniciando sesión...',
+    });
+    await loading.present();
+
+    const loginData: Login = this.loginform.value;
+
+    this.api.login(loginData.u_email, loginData.u_contrasena).subscribe(
+      async (response) => {
+        await loading.dismiss();
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/principal']); 
+
+      },
+      async (error) => {
+        await loading.dismiss();
+        this.errormessage = 'Los datos de inicio de sesión no son correctos.';
+      }
+    );
+  }
+}
+
+>>>>>>> 3298823d57b92c91fa6d9cddc441fb144c6d6e97

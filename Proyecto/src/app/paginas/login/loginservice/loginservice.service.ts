@@ -7,12 +7,20 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class LoginserviceService {
+<<<<<<< HEAD
   private apiUrl = 'http://localhost:3000/api/login'; 
+=======
+  private apiUrl = 'http://localhost:3000/api/login'; // Cambia a la URL de tu API
+>>>>>>> 3298823d57b92c91fa6d9cddc441fb144c6d6e97
 
   constructor(private http: HttpClient) {}
 
   login(email: string, contrasena: string): Observable<any> {
+<<<<<<< HEAD
     console.log('Enviando a la API:', { u_email: email, u_contrasena: contrasena }); 
+=======
+    console.log('Enviando a la API:', { u_email: email, u_contrasena: contrasena }); // Añade un log para depuración
+>>>>>>> 3298823d57b92c91fa6d9cddc441fb144c6d6e97
     return this.http.post<any>(this.apiUrl, { u_email: email, u_contrasena: contrasena }).pipe(
       catchError(this.handleError)
     );
@@ -28,4 +36,9 @@ export class LoginserviceService {
     return throwError(errorMessage);
   }
   
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 3298823d57b92c91fa6d9cddc441fb144c6d6e97
