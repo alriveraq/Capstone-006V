@@ -14,47 +14,48 @@
 
     <h1 class="titulo">Te estas Registrando en BarrioActivo</h1>
 
-    <form>
+    <form [formGroup]="usuarioform"  (ngSubmit)="register()">
       <ion-item>
-        <ion-label position="floating">Rut</ion-label>
+        <ion-label position="floating" >Rut</ion-label>
         <br>
-        <ion-input type="number" placeholder="Ingrese Rut"></ion-input>
+        <ion-input type="number" placeholder="Ingrese Rut"   formControlName="rut"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
         <br>
-        <ion-input type="text" placeholder="Ingrese Nombre"></ion-input>
+        <ion-input type="text" placeholder="Ingrese Nombre"  formControlName="nombre"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Apellido Paterno</ion-label>
         <br>
-        <ion-input type="text" placeholder="Ingrese Apellido Paterno"></ion-input>
+        <ion-input type="text" placeholder="Ingrese Apellido Paterno"  formControlName="a_paterno"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Apellido Materno</ion-label>
         <br>
-        <ion-input type="text" placeholder="Ingrese Apellido Materno"></ion-input>
+        <ion-input type="text" placeholder="Ingrese Apellido Materno"  formControlName="a_materno"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Correo Electronico</ion-label>
+        <ion-label position="floating">Correo Electronico</ion-label> 
         <br>
-        <ion-input type="email" placeholder="Ingrese su Correo"></ion-input>
+        <ion-input type="email" placeholder="Ingrese su Correo"  formControlName="email"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
         <br>
-        <ion-input type="password" placeholder="Ingresar Contraseña"></ion-input>
+        <ion-input type="password" placeholder="Ingresar Contraseña"  formControlName="contrasena"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Confirmar Contraseña</ion-label>
         <br>
-        <ion-input type="password" placeholder="Ingresar Contraseña"></ion-input>
+        <ion-input type="password" placeholder="Ingresar Contraseña"  formControlName="contrasena"></ion-input>
       </ion-item>
 
       <div class="botones">
         <ion-button expand="full" color="primary" routerLink="/principal">Registrar</ion-button>
+        <div *ngIf="errormessage" style="color: red;">{{ errormessage }}</div>
         <ion-button expand="full" fill="clear" routerLink="/login">¿Ya tienes una cuenta? Iniciar sesion</ion-button>
       </div>
 

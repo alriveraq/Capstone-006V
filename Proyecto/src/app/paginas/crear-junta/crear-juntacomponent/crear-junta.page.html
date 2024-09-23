@@ -1,0 +1,53 @@
+<ion-content class="ion-padding">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <div class="background-image" style='background-image: url("https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png");'></div>
+
+    <h1 class="titulo">Crea una nueva junta de vecinos</h1>
+
+  <form [formGroup]="juntaform"  (ngSubmit)="cJunta()">
+    
+    <ion-item class="input-grupo">
+      <ion-label class="input-label" position="floating" >Nombre del Barrio</ion-label>
+      <br>
+      <ion-input type="number" placeholder="Ingrese nombre"   formControlName="nombre_barrio"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-grupo">
+      <ion-label class="input-label" position="floating" >Direccion</ion-label>
+      <br>
+      <ion-input type="number" placeholder="Ingrese nombre"   formControlName="direccion"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-grupo">
+      <ion-label class="input-label" position="floating" >comuna</ion-label>
+      <br>
+      <ion-input type="number" placeholder="Ingresar comuna"   formControlName="comuna"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-grupo">
+      <ion-label class="input-label" position="floating" >Fecha de fundacion</ion-label>
+      <br>
+      <ion-input type="number" placeholder="Ingresar Fecha"   formControlName="fecha_fundacion"></ion-input>
+    </ion-item>
+
+    <p class="terminos">Al crear un grupo, acepta los términos y la política de privacidad.</p>
+
+    <div class="botones">
+      <ion-button expand="full" class="grupo-botones">Crear Junta de vecinos</ion-button>
+      <div *ngIf="errormessage">{{ errormessage }}</div>
+    </div>
+
+
+  </form>
+  </div>  
+</ion-content>
