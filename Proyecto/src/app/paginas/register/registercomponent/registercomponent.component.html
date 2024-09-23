@@ -18,7 +18,7 @@
       <ion-item>
         <ion-label position="floating" >Rut</ion-label>
         <br>
-        <ion-input type="number" placeholder="Ingrese Rut"   formControlName="rut"></ion-input>
+        <ion-input type="text" placeholder="Ingrese Rut"   formControlName="rut"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
@@ -50,11 +50,11 @@
       <ion-item>
         <ion-label position="floating">Confirmar Contraseña</ion-label>
         <br>
-        <ion-input type="password" placeholder="Ingresar Contraseña"  formControlName="contrasena"></ion-input>
+        <ion-input type="password" placeholder="Ingresar Contraseña"  formControlName="confirmarContrasena"></ion-input>
       </ion-item>
 
       <div class="botones">
-        <ion-button expand="full" color="primary" routerLink="/principal">Registrar</ion-button>
+        <ion-button expand="full" color="primary" type="submit">Registrar</ion-button>
         <div *ngIf="errormessage" style="color: red;">{{ errormessage }}</div>
         <ion-button expand="full" fill="clear" routerLink="/login">¿Ya tienes una cuenta? Iniciar sesion</ion-button>
       </div>

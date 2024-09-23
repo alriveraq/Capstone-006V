@@ -21,8 +21,4 @@ describe('LogincomponentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 3298823d57b92c91fa6d9cddc441fb144c6d6e97

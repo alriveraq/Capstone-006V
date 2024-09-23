@@ -5,6 +5,7 @@ import { RegisterRoutingModule } from './registercomponent-routing.module';
 import { RegistercomponentComponent } from './registercomponent.component'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { RegisterserviceService } from '../service/registerservice.service';
 
 
 
@@ -20,6 +21,7 @@ import { IonicModule } from '@ionic/angular';
     IonicModule
   ],
   providers: [
+    RegisterserviceService
   ]
 })
 export class RegisterModule { }

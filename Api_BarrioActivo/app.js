@@ -9,6 +9,7 @@ const port = 3000;
 const server = http.createServer(app);
 
 const loginroutes = require('./login/route/loginroute');
+const registerroutes = require('./register/route/registerroute');
 
 app.use(express.json());
 app.use(cors());
@@ -16,7 +17,7 @@ app.use(cors());
 
 
 app.use('/api', loginroutes);
-
+app.use('/api', registerroutes);
 initialize().then(() => {
     server.listen(port, () => {
         console.log(`Server is running on port ${port}`);
