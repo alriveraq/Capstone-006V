@@ -10,6 +10,7 @@ const server = http.createServer(app);
 
 const loginroutes = require('./login/route/loginroute');
 const registerroutes = require('./register/route/registerroute');
+const creacionjuntaroutes = require('./creacionjunta/route/creacionjuntaroute');
 
 app.use(express.json());
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use('/api', loginroutes);
 app.use('/api', registerroutes);
+app.use('/api', creacionjuntaroutes);
 initialize().then(() => {
     server.listen(port, () => {
         console.log(`Server is running on port ${port}`);

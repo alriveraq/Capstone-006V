@@ -31,6 +31,16 @@ CREATE TABLE USUARIO (
     CONSTRAINT unique_usuario_junta UNIQUE (id_usuario,id_junta)
     );
 
+    CREATE TABLE INFO_JUNTA (
+    id_info_junta NUMBER PRIMARY KEY,
+    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta),
+    id_presidente NUMBER REFERENCES USUARIO(id_usuario),
+    id_tesorero NUMBER REFERENCES USUARIO(id_usuario),
+    id_secretario NUMBER REFERENCES USUARIO(id_usuario),
+    CONSTRAINT unique_junta_info UNIQUE (id_info_junta, id_junta)
+    );
+    
+
 CREATE TABLE PUBLICACIONES (
     id_publicaciones NUMBER PRIMARY KEY,
     p_titular VARCHAR2(50) NOT NULL,

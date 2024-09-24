@@ -52,7 +52,9 @@ export class LogincomponentComponent implements OnInit {
       async (response) => {
         await loading.dismiss();
         localStorage.setItem('token', response.token);
+        localStorage.setItem('id_usuario', response.id);
         console.log('Token:', response.token);
+        console.log('ID de usuario:', response.id);
         this.router.navigate(['/principal']); 
 
       },
