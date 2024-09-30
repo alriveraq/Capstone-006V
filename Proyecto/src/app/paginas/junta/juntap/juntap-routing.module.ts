@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { JuntapPage } from './juntap.page';
+import { AuthGuard } from '../../auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: JuntapPage
+    component: JuntapPage,
+    canActivate: [AuthGuard]
   }
 ];
 

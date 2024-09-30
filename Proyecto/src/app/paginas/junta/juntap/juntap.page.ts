@@ -29,7 +29,6 @@ export class JuntapPage implements OnInit {
     this.api.getInformacionJunta(id_usuario).subscribe(
       (data) => {
         if (data.informacion.length === 0) {
-          this.router.navigate(['/crear-junta']);
         } else {
           console.log('Información de la junta:', data);
           this.titulo = data.informacion[0][0];
@@ -53,6 +52,7 @@ export class JuntapPage implements OnInit {
       },
       (error) => {
         console.error('Error al obtener la información de la junta:', error);
+        this.router.navigate(['/crear-junta']);
       }
     );
   }
