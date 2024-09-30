@@ -1,0 +1,49 @@
+  
+  .container {
+    padding: 16px;
+  }
+  
+  .perfil {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .perfil-image {
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+  
+  .profile-info {
+    flex: 1;
+  }
+  
+  .perfil-name {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .inf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .datos-card {
+    flex: 1;
+    background-color: #dbdbdb;
+    border-radius: 10px;
+    padding: 16px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .datos {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+
+  

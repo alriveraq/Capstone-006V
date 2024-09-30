@@ -1,0 +1,61 @@
+<ion-app>
+  <ion-content class="ion-padding" style="font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;">
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-buttons slot="start" routerLink="/principal">
+          <ion-button fill="clear">
+            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+
+    <h1 class="titulo">Editar Perfil</h1>
+
+    <form >
+      <ion-item>
+        <ion-label position="floating" >Rut</ion-label>
+        <br>
+        <ion-input type="text" placeholder="Ingrese Rut"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <br>
+        <ion-input type="text" placeholder="Ingrese Nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido Paterno</ion-label>
+        <br>
+        <ion-input type="text" placeholder="Ingrese Apellido Paterno"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido Materno</ion-label>
+        <br>
+        <ion-input type="text" placeholder="Ingrese Apellido Materno"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Tipo de casa</ion-label> 
+        <br>
+        <ion-input type="email" placeholder="Ingrese su tipo de casa"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Integrantes</ion-label>
+        <br>
+        <ion-input type="password" placeholder="Ingresar cantidad de integrantes"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Adultos mayores</ion-label>
+        <br>
+        <ion-input type="password" placeholder="Ingresar cantidad de Adultos mayores"></ion-input>
+      </ion-item>
+
+      <div class="botones">
+        <ion-button expand="full" color="primary" type="submit">Confirmar</ion-button>
+      </div>
+
+    </form>
+  </ion-content>
+</ion-app>
