@@ -32,6 +32,14 @@ const routes: Routes = [
   {
     path: 'juntap/:id_usuario',
     loadChildren: () => import('./paginas/junta/juntap/juntap.module').then( m => m.JuntapPageModule)
+  },
+  {
+    path: 'usuariop',
+    loadChildren: () => import('./paginas/usuario/usuariop/usuariop.module').then( m => m.UsuariopPageModule)
+  },
+  {
+    path: 'editaru',
+    loadChildren: () => import('./paginas/usuario/editaru/editaru.module').then( m => m.EditaruPageModule)
   }
 
 
