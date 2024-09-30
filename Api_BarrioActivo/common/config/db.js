@@ -28,4 +28,24 @@ async function getConnection() {
     }
 }
 
-module.exports = { initialize, getConnection };
+async function execute(query, params = []) {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(query, params);
+        return result;
+    } catch (err) {
+        console.error('Error al ejecutar la consulta: ' + err.message);
+        throw err; // Manejar el error
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error al cerrar la conexión: ' + err.message);
+            }
+        }
+    }
+}
+
+module.exports = { initialize, getConnection,execute };

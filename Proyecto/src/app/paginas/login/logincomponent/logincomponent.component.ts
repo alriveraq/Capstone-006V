@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { LoginserviceService } from '../loginservice/loginservice.service';
-import { Login } from '../interface/login'; // Asegúrate de que la ruta sea correcta
+import { Login } from '../interface/login'; 
 
 @Component({
   selector: 'app-logincomponent',
@@ -11,7 +11,7 @@ import { Login } from '../interface/login'; // Asegúrate de que la ruta sea cor
   styleUrls: ['./logincomponent.component.scss'],
 })
 export class LogincomponentComponent implements OnInit {
-  loginform!: FormGroup; // Aquí se define el formulario
+  loginform!: FormGroup; 
   errormessage: string = '';
 
   constructor(
@@ -52,7 +52,9 @@ export class LogincomponentComponent implements OnInit {
       async (response) => {
         await loading.dismiss();
         localStorage.setItem('token', response.token);
+        localStorage.setItem('id_usuario', response.id);
         console.log('Token:', response.token);
+        console.log('ID de usuario:', response.id);
         this.router.navigate(['/principal']); 
 
       },

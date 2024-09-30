@@ -3,9 +3,6 @@ CREATE TABLE JUNTA_DE_VECINOS (
     nombre_barrio VARCHAR2(50)NOT NULL,
     direccion VARCHAR2(100)NULL,
     fecha_fundacion DATE NOT NULL,
-    j_nombre_presidente VARCHAR2(100)NOT NULL,
-    j_telefono_contacto VARCHAR2(20)NOT NULL,
-    j_email_contacto VARCHAR2(100)NOT NULL,
     fecha_creacion DATE DEFAULT SYSDATE
     );
     
@@ -30,6 +27,16 @@ CREATE TABLE USUARIO (
     fecha_creacion DATE DEFAULT SYSDATE,
     CONSTRAINT unique_usuario_junta UNIQUE (id_usuario,id_junta)
     );
+
+    CREATE TABLE INFO_JUNTA (
+    id_info_junta NUMBER PRIMARY KEY,
+    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta),
+    id_presidente NUMBER REFERENCES USUARIO(id_usuario),
+    id_tesorero NUMBER REFERENCES USUARIO(id_usuario),
+    id_secretario NUMBER REFERENCES USUARIO(id_usuario),
+    CONSTRAINT unique_junta_info UNIQUE (id_info_junta, id_junta)
+    );
+    
 
 CREATE TABLE PUBLICACIONES (
     id_publicaciones NUMBER PRIMARY KEY,

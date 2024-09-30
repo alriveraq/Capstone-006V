@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../../auth/auth.guard';
-import { CrearJuntaPage } from './crear-junta.page'; 
+
+import { UsuariopPage } from './usuariop.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CrearJuntaPage,
-    canActivate: [AuthGuard]
+    component: UsuariopPage
   }
 ];
 
@@ -15,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CrearJuntaPageRoutingModule {}
+export class UsuariopPageRoutingModule {}

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'principal',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -28,7 +28,20 @@ const routes: Routes = [
   {
     path: 'crear-junta',
     loadChildren: () => import('./paginas/crear-junta/crear-juntacomponent/crear-junta.module').then( m => m.CrearJuntaPageModule)
+  },
+  {
+    path: 'juntap/:id_usuario',
+    loadChildren: () => import('./paginas/junta/juntap/juntap.module').then( m => m.JuntapPageModule)
+  },
+  {
+    path: 'usuariop',
+    loadChildren: () => import('./paginas/usuario/usuariop/usuariop.module').then( m => m.UsuariopPageModule)
+  },
+  {
+    path: 'editaru',
+    loadChildren: () => import('./paginas/usuario/editaru/editaru.module').then( m => m.EditaruPageModule)
   }
+
 
 
 ];

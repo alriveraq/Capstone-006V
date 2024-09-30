@@ -16,35 +16,29 @@
 
   <form [formGroup]="juntaform"  (ngSubmit)="cJunta()">
     
-    <ion-item class="input-grupo">
-      <ion-label class="input-label" position="floating" >Nombre del Barrio</ion-label>
+    <ion-item>
+      <ion-label  position="floating" >Nombre del Barrio</ion-label>
       <br>
-      <ion-input type="number" placeholder="Ingrese nombre"   formControlName="nombre_barrio"></ion-input>
+      <ion-input type="text" placeholder="Ingrese nombre"   formControlName="nombre_barrio"></ion-input>
     </ion-item>
 
-    <ion-item class="input-grupo">
-      <ion-label class="input-label" position="floating" >Direccion</ion-label>
+    <ion-item >
+      <ion-label  position="floating" >Direccion</ion-label>
       <br>
-      <ion-input type="number" placeholder="Ingrese nombre"   formControlName="direccion"></ion-input>
+      <ion-input type="text" placeholder="Ingrese nombre"   formControlName="direccion"></ion-input>
     </ion-item>
 
-    <ion-item class="input-grupo">
-      <ion-label class="input-label" position="floating" >comuna</ion-label>
+    <ion-item >
+      <ion-label  position="floating" >Fecha de fundacion</ion-label>
       <br>
-      <ion-input type="number" placeholder="Ingresar comuna"   formControlName="comuna"></ion-input>
-    </ion-item>
-
-    <ion-item class="input-grupo">
-      <ion-label class="input-label" position="floating" >Fecha de fundacion</ion-label>
-      <br>
-      <ion-input type="number" placeholder="Ingresar Fecha"   formControlName="fecha_fundacion"></ion-input>
+      <ion-input type="text" placeholder="Ingresar Fecha"   formControlName="fecha_fundacion"></ion-input>
     </ion-item>
 
     <p class="terminos">Al crear un grupo, acepta los términos y la política de privacidad.</p>
 
     <div class="botones">
-      <ion-button expand="full" class="grupo-botones">Crear Junta de vecinos</ion-button>
-      <div *ngIf="errormessage">{{ errormessage }}</div>
+      <ion-button expand="full" type="submit" class="grupo-botones">Crear Junta de vecinos</ion-button>
+      <        <div *ngIf="errormessage" style="color: red;">{{ errormessage }}</div>
     </div>
 
 
