@@ -2,7 +2,12 @@
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button routerLink="/crear-junta">
+        <ion-button *ngIf="!logeado()" routerLink="/crear-junta">
+          <ion-icon name="people-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="start">
+        <ion-button *ngIf="logeado()" (click)="navegarAInfoJunta()">
           <ion-icon name="people-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -59,10 +64,17 @@
         </ion-button>
       </ion-buttons>
       <ion-buttons slot="end">
-        <ion-button routerLink="/login">
+        <ion-button *ngIf="!logeado()" routerLink="/login">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button *ngIf="logeado()" routerLink="/crear-junta">
           <ion-icon name="person-outline"></ion-icon>
           <ion-label>Perfil</ion-label>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-footer>
+</ion-app>

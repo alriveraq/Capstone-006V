@@ -27,5 +27,10 @@ export class LoginserviceService {
     }
     return throwError(errorMessage);
   }
+
+  logeado(): boolean {
+    const token = localStorage.getItem('token');
+    return token ? true : false;
+  }
   
 }

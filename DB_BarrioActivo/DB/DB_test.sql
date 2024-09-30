@@ -3,9 +3,6 @@ CREATE TABLE JUNTA_DE_VECINOS (
     nombre_barrio VARCHAR2(50)NOT NULL,
     direccion VARCHAR2(100)NULL,
     fecha_fundacion DATE NOT NULL,
-    j_nombre_presidente VARCHAR2(100)NOT NULL,
-    j_telefono_contacto VARCHAR2(20)NOT NULL,
-    j_email_contacto VARCHAR2(100)NOT NULL,
     fecha_creacion DATE DEFAULT SYSDATE
     );
     

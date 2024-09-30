@@ -7,6 +7,6 @@ async function creacionjunta(nombre_barrio, direccion, fecha_fundacion, id_presi
         throw error;
     }
     
-}
+};
 
 module.exports = { creacionjunta };

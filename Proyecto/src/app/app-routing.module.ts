@@ -28,8 +28,9 @@ const routes: Routes = [
   {
     path: 'crear-junta',
     loadChildren: () => import('./paginas/crear-junta/crear-juntacomponent/crear-junta.module').then( m => m.CrearJuntaPageModule)
-  },  {
-    path: 'juntap',
+  },
+  {
+    path: 'juntap/:id_usuario',
     loadChildren: () => import('./paginas/junta/juntap/juntap.module').then( m => m.JuntapPageModule)
   }
 
