@@ -40,7 +40,12 @@ const routes: Routes = [
   {
     path: 'editaru',
     loadChildren: () => import('./paginas/usuario/editaru/editaru.module').then( m => m.EditaruPageModule)
+  },
+  {
+    path: 'solicitud',
+    loadChildren: () => import('./paginas/junta/solicitud/solicitud.module').then( m => m.SolicitudPageModule)
   }
+
 
 
 
