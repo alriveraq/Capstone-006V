@@ -11,6 +11,10 @@ export class JuntaService {
   constructor(private http: HttpClient) {}
 
   getInformacionJunta(id_usuario: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/junta/usuario/${id_usuario}`);
+    return this.http.get(`${this.baseUrl}/info/junta/${id_usuario}`);
+  }
+
+  getjuntas(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/juntas`);
   }
 }
