@@ -1,4 +1,5 @@
 const db = require('../../common/config/db');
+const oracle = require('oracledb');
 
 const obtenerIdJuntaPorUsuario = async (id_usuario) => {
     const query = `
@@ -76,9 +77,79 @@ const solicitudesjunta = async (id_junta) => {
     return result.rows;
 }
 
+async function solicitarUnionJunta(u_id_usuario, u_id_presidente_junta, u_id_junta, u_estado, u_fecha_respuesta) {
+    let connection;
+
+    try {
+        console.log('Solicitando unión a junta:', {
+            u_id_usuario,
+            u_id_presidente_junta,
+            u_id_junta,
+            u_estado,
+            u_fecha_respuesta
+        }); 
+        connection = await db.getConnection();
+        const result = await connection.execute(
+            `CALL PL_SOLICITUD_JUNTA(
+                :id_usuario, 
+                :id_presidente_junta, 
+                :id_junta, 
+                :estado, 
+                :fecha_respuesta,
+                :mensaje,
+                :error_code)`,
+                {
+                    id_usuario: { val: u_id_usuario, dir: oracle.BIND_IN },
+                    id_presidente_junta: { val: u_id_presidente_junta, dir: oracle.BIND_IN },
+                    id_junta: { val: u_id_junta, dir: oracle.BIND_IN },
+                    estado: { val: u_estado, dir: oracle.BIND_IN },
+                    fecha_respuesta: { val: u_fecha_respuesta, dir: oracle.BIND_IN },
+                    mensaje: { dir: oracle.BIND_OUT, type: oracle.STRING },
+                    error_code: { dir: oracle.BIND_OUT, type: oracle.STRING }
+                }
+        );
+
+        const u_mensaje = result.outBinds.mensaje;
+        const u_error_code = result.outBinds.error_code;
+
+        if (u_error_code) {
+            return Promise.reject({
+                code: u_error_code,
+                message: u_mensaje
+            });
+        }
+    } catch (error) {
+        console.error('Error executing stored procedure from repository:', error);
+        throw new Error('Internal Server Error from repository');
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing the connection:', err);
+            }
+        }
+    }
+}
+
+
+const obtenerTodasLasJuntas = async () => {
+    const query = `SELECT 
+        id_junta,
+        nombre_barrio AS "NOMBRE DEL BARRIO",
+        direccion AS "DIRECCION"
+    FROM 
+        JUNTA_DE_VECINOS`;
+    
+    const result = await db.execute(query);
+    return result.rows;
+};
+
 module.exports = {
     obtenerIdJuntaPorUsuario,
     juntainformacion,
     usuariosjunta,
-    solicitudesjunta
+    solicitudesjunta,
+    solicitarUnionJunta,
+    obtenerTodasLasJuntas
 };

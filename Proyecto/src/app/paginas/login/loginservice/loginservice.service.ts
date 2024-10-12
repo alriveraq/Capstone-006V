@@ -32,5 +32,18 @@ export class LoginserviceService {
     const token = localStorage.getItem('token');
     return token ? true : false;
   }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id_usuario');
+  }
+
+  getuserid(): string | null {
+    if (localStorage.getItem('id_usuario')) {
+      return localStorage.getItem('id_usuario');
+    } else {
+      return null;
+    }
+  }
   
 }
