@@ -12,10 +12,12 @@ const loginroutes = require('./login/route/loginroute');
 const registerroutes = require('./register/route/registerroute');
 const creacionjuntaroutes = require('./creacionjunta/route/creacionjuntaroute');
 const infojuntaroutes = require('./infojunta/route/infojuntaroute');
+const usuarioroutes = require('./usuario/route/usuarioroute');
 
 app.use(express.json());
 app.use(cors());
 
+app.use('/api', usuarioroutes);
 app.use('/api', loginroutes);
 app.use('/api', registerroutes);
 app.use('/api', creacionjuntaroutes);

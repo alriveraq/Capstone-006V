@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./paginas/junta/juntap/juntap.module').then( m => m.JuntapPageModule)
   },
   {
-    path: 'usuariop',
+    path: 'usuariop/:id_usuario',
     loadChildren: () => import('./paginas/usuario/usuariop/usuariop.module').then( m => m.UsuariopPageModule)
   },
   {
