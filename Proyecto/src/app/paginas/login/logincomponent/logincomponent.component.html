@@ -1,40 +1,32 @@
-  <ion-app>
-    <ion-content class="ion-padding" style="font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;">
-      <ion-header translucent>
-        <ion-toolbar>
-          <ion-buttons slot="start" routerLink="/principal">
-            <ion-button fill="clear">
-              <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-  
-      <div class="banner" style='background-image: url("https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png");'></div>
-  
+<ion-app>
+  <ion-header translucent>
+  </ion-header>
+
+  <div class="banner">
+    <div class="contenido">    
       <h1 class="titulo">Bienvenido a BarrioActivo</h1>
-  
+
       <form [formGroup]="loginform" (ngSubmit)="login()">
-        <ion-item>
-          <ion-label position="floating">Correo Electronico</ion-label>
-          <br>
-          <ion-input type="email" placeholder="Ingrese Correo"  formControlName="u_email"></ion-input>
+        <ion-item class="color">
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input type="email" placeholder="Ingrese Correo" formControlName="u_email"></ion-input>
         </ion-item>
-  
-        <ion-item>
+
+        <ion-item class="color">
           <ion-label position="floating">Contraseña</ion-label>
-          <br>
-          <ion-input type="password" placeholder="Ingrese Contraseña"  formControlName="u_contrasena"></ion-input>
+          <ion-input type="password" placeholder="Ingrese Contraseña" formControlName="u_contrasena"></ion-input>
         </ion-item>
-  
+
         <div class="botones">
-          <ion-button expand="full" color="primary" type="submit">Iniciar sesion</ion-button>
-          <div *ngIf="errormessage" style="color: red;">{{ errormessage }}</div>
-          <ion-button expand="full" fill="clear" routerLink="/register">¿No tienes cuenta? registrarse</ion-button>
+          <ion-button expand="full" color="primary" type="submit">Iniciar sesión</ion-button>
+          <div *ngIf="errormessage" class="error-message">{{ errormessage }}</div>
+          <ion-button expand="full" fill="clear" routerLink="/register">¿No tienes cuenta? Registrarse</ion-button>
+          
         </div>
-  
-        <p class="terminos">Al continuar, aceptas los Términos de uso. Lea nuestra Política de Privacidad.</p>
+
+
+        <p class="terminos">Al continuar, aceptas los Términos de uso. Lee nuestra Política de Privacidad.</p>
       </form>
-    </ion-content>
-  </ion-app>
-  
+    </div>
+  </div>
+</ion-app>
