@@ -8,13 +8,22 @@ import { PrincipalPageRoutingModule } from './principal-routing.module';
 
 import { PrincipalPage } from './principal.page';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
+
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PrincipalPageRoutingModule
+    PrincipalPageRoutingModule,
+
+    
   ],
-  declarations: [PrincipalPage]
+  declarations: [PrincipalPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PrincipalPageModule {}

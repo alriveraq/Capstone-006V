@@ -5,6 +5,7 @@ import { JuntaService } from '../junta/service/juntaservice.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.page.html',
@@ -15,10 +16,11 @@ export class PrincipalPage implements OnInit {
   public filteredjuntas: any[] = [];
   private searchSubject: Subject<string> = new Subject<string>();
   public juntas: any[] = [];
+    
+    constructor(private login: LoginserviceService, 
+                private router: Router,
+                private api: JuntaService) { }
 
-  constructor(private login: LoginserviceService, 
-    private router: Router,
-    private api: JuntaService) { }
 
   logeado(): boolean { 
     return this.login.logeado();

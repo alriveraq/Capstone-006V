@@ -36,25 +36,23 @@
   }
   
   .container ion-buttons {
-    margin: 0 10px; /* Ajusta el espacio entre botones si es necesario */
+    margin: 0 10px; 
   }
   
   .custom-toolbar {
     display: flex;
-    justify-content: center; /* Centra los botones */
+    justify-content: center; 
   }
   
   .button-container {
     display: flex;
-    justify-content: space-between; /* Espacia los botones uniformemente */
-    width: 100%; /* Asegura que ocupe todo el ancho */
+    justify-content: space-between;
+    width: 100%; 
   }
   
   .button-container ion-buttons {
-    flex: 1; /* Cada botón ocupará un espacio igual */
+    flex: 1; 
     display: flex;
-    justify-content: center; /* Centra el contenido de cada botón */
+    justify-content: center; 
   }
-  
-  /* Elimina la clase center-button si no se necesita */
   
