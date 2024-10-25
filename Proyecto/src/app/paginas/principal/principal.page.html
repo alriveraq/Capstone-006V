@@ -17,10 +17,12 @@
   </ion-header>
 
   <ion-content>
-    <div class="busqueda">
-      <ion-searchbar placeholder="Escribe aquí" [(ngModel)]="searchTerm" (ionInput)="debounceFilter()"></ion-searchbar>
-    </div>
 
+  <div class="busqueda">
+    <ion-searchbar placeholder="Busca tu junta" [(ngModel)]="searchTerm" (ionInput)="debounceFilter()"></ion-searchbar>
+  </div>
+
+  <section class="seccion">
     <ion-list *ngIf="searchTerm">
       <ion-item *ngFor="let junta of filteredjuntas" (click)="irjunta(junta.id_junta)">
         <ion-label>
@@ -28,6 +30,7 @@
         </ion-label>
       </ion-item>
     </ion-list>
+  </section>
 
     <h2>Últimas noticias</h2>
     <div class="noticias"

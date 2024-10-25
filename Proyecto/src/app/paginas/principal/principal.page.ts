@@ -4,6 +4,9 @@ import { LoginserviceService } from '../login/loginservice/loginservice.service'
 import { JuntaService } from '../junta/service/juntaservice.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @Component({
   selector: 'app-principal',
@@ -11,14 +14,37 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./principal.page.scss'],
 })
 export class PrincipalPage implements OnInit {
+  slideIndex = 0;
   public searchTerm: string = '';
   public filteredjuntas: any[] = [];
   private searchSubject: Subject<string> = new Subject<string>();
   public juntas: any[] = [];
+  
+  noticias = [
+    {
+      imagenUrl: 'https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png',
+      titulo: 'Noticia 1',
+      descripcion: 'Descripción de la noticia 1',
+    },
+    {
+      imagenUrl: 'https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png',
+      titulo: 'Noticia 2',
+      descripcion: 'Descripción de la noticia 2',
+    },
+    {
+      imagenUrl: 'https://blog.jumboprinters.com/wp-content/uploads/2021/09/consejos-imagenes.jpg',
+      titulo: 'Noticia 2',
+      descripcion: 'Descripción de la noticia 2',
+    },
+ 
+  ];
+  
+  
 
-  constructor(private login: LoginserviceService, 
-    private router: Router,
-    private api: JuntaService) { }
+    constructor(private login: LoginserviceService, 
+                private router: Router,
+                private api: JuntaService) { }
+
 
   logeado(): boolean { 
     return this.login.logeado();
@@ -95,4 +121,21 @@ export class PrincipalPage implements OnInit {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
