@@ -6,11 +6,7 @@
           <ion-icon name="people-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-buttons slot="start">
-        <ion-button *ngIf="logeado()" (click)="navegarAInfoJunta()">
-          <ion-icon name="people-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+
       <ion-title>Principal</ion-title>
       <ion-buttons slot="end">
         <ion-button>
@@ -21,10 +17,12 @@
   </ion-header>
 
   <ion-content>
-    <div class="busqueda">
-      <ion-searchbar placeholder="Escribe aquí" [(ngModel)]="searchTerm" (ionInput)="debounceFilter()"></ion-searchbar>
-    </div>
 
+  <div class="busqueda">
+    <ion-searchbar placeholder="Busca tu junta" [(ngModel)]="searchTerm" (ionInput)="debounceFilter()"></ion-searchbar>
+  </div>
+
+  <section class="seccion">
     <ion-list *ngIf="searchTerm">
       <ion-item *ngFor="let junta of filteredjuntas">
         <ion-avatar slot="start" style="background-image: url('{{ junta.imagenUrl }}');"></ion-avatar>
@@ -33,23 +31,36 @@
         </ion-label>
       </ion-item>
     </ion-list>
+  </section>
 
     <h2>Últimas noticias</h2>
-    <div class="noticias" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
-    <div class="noticias" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
-    <div class="noticias" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
+
+
+    <swiper-container autoplay="true" pagination="true" navigation="true" class="mySwiper">
+      <ng-container *ngFor="let noticia of noticias">
+        <swiper-slide >
+          <div class="imagenes" [ngStyle]="{ 'background-image': 'url(' + noticia.imagenUrl + ')' }"> </div>  
+          <div class="noticia-content">  
+            <h3>{{ noticia.titulo }}</h3>
+            <p>{{ noticia.descripcion }}</p>
+          </div>
+        </swiper-slide>
+      </ng-container>
+    </swiper-container>
+    
+
 
     <h2>Anuncios</h2>
     <ion-list>
       <ion-item>
-        <ion-avatar slot="start" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></ion-avatar>
+        <ion-avatar slot="start" style="background-image: url('https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png');"></ion-avatar>
         <ion-label>
           <h2>Reunión</h2>
           <p>Mañana 5 P.M</p>
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-avatar slot="start" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></ion-avatar>
+        <ion-avatar slot="start" style="background-image: url('https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png');"></ion-avatar>
         <ion-label>
           <h2>Elección</h2>
           <p>Ahora</p>
@@ -59,32 +70,37 @@
 
     <h2>Proyectos</h2>
     <div class="proyectos">
-      <div class="proyecto" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
-      <div class="proyecto" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
-      <div class="proyecto" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
+      <div class="proyecto" style="background-image: url('https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png');"></div>
+      <div class="proyecto" style="background-image: url('https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png');"></div>
+      <div class="proyecto" style="background-image: url('https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png');"></div>
     </div>
   </ion-content>
 
   <ion-footer>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button>
-          <ion-icon name="home-outline"></ion-icon>
-          <ion-label>Inicio</ion-label>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button *ngIf="!logeado()" routerLink="/login">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-label>Perfil</ion-label>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button *ngIf="logeado()" (click)="navegarAInfoUsuario()">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-label>Perfil</ion-label>
-        </ion-button>
-      </ion-buttons>
+    <ion-toolbar class="custom-toolbar">
+      <div class="button-container">
+        <ion-buttons routerLink="/principal">
+          <ion-button>
+            <ion-icon name="home-outline"></ion-icon>
+            <ion-label>Inicio</ion-label>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons class="center-button">
+          <ion-button *ngIf="logeado()" (click)="navegarAInfoJunta()">
+            <ion-icon name="people-outline"></ion-icon>
+            <ion-label>Grupo</ion-label>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons>
+          <ion-button *ngIf="logeado()" (click)="navegarAInfoUsuario()">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>Perfil</ion-label>
+          </ion-button>
+        </ion-buttons>
+      </div>
     </ion-toolbar>
   </ion-footer>
 </ion-app>
+
+
+

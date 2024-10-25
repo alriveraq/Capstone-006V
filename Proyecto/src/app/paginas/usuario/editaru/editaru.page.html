@@ -1,61 +1,53 @@
 <ion-app>
-  <ion-content class="ion-padding" style="font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;">
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start" routerLink="/principal">
-          <ion-button fill="clear">
-            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-buttons slot="start" routerLink="/principal">
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Editar</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
+  <div class="banner">
+    <div class="contenido">
+      <h1 class="titulo">Editando Usuario</h1>
 
-    <h1 class="titulo">Editar Perfil</h1>
+      <form [formGroup]="usuariouform" (ngSubmit)="eUsuario()">
+        <ion-item class="color">
+          <ion-label position="floating">Rut</ion-label>
+          <ion-input type="text" placeholder="Ingrese Rut" formControlName="rut"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" placeholder="Ingrese Nombre" formControlName="nombre"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Apellido Paterno</ion-label>
+          <ion-input type="text" placeholder="Ingrese Apellido Paterno" formControlName="a_paterno"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Apellido Materno</ion-label>
+          <ion-input type="text" placeholder="Ingrese Apellido Materno" formControlName="a_materno"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Tipo de casa</ion-label>
+          <ion-input type="text" placeholder="Ingrese su tipo de casa" formControlName="tipo_casa"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Integrantes</ion-label>
+          <ion-input type="number" placeholder="Ingresar cantidad de integrantes" formControlName="integrantes"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Adultos mayores</ion-label>
+          <ion-input type="number" placeholder="Ingresar cantidad de Adultos mayores" formControlName="adultos_mayores"></ion-input>
+        </ion-item>
 
-    <form [formGroup]="usuariouform"  (ngSubmit)="eUsuario()">
-      <ion-item>
-        <ion-label position="floating" >Rut</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Rut" formControlName="rut"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Nombre" formControlName="nombre"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido Paterno</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Apellido Paterno" formControlName="a_paterno"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido Materno</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Apellido Materno" formControlName="a_materno"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Tipo de casa</ion-label> 
-        <br>
-        <ion-input type="email" placeholder="Ingrese su tipo de casa" formControlName="tipo_casa"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Integrantes</ion-label>
-        <br>
-        <ion-input type="password" placeholder="Ingresar cantidad de integrantes" formControlName="integrantes"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Adultos mayores</ion-label>
-        <br>
-        <ion-input type="password" placeholder="Ingresar cantidad de Adultos mayores" formControlName="adultos_mayores"></ion-input>
-      </ion-item>
-
-      <div class="botones">
-        <ion-button expand="full" color="primary" type="submit">Confirmar</ion-button>
-      </div>
-
-    </form>
-  </ion-content>
+        <div class="botones">
+          <ion-button expand="full" color="primary" type="submit">Confirmar</ion-button>
+        </div>
+      </form>
+    </div>
+  </div>
 </ion-app>

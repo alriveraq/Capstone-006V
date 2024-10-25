@@ -1,65 +1,58 @@
 <ion-app>
-  <ion-content class="ion-padding" style="font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;">
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start" routerLink="/principal">
-          <ion-button fill="clear">
-            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-buttons slot="start" routerLink="/login">
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Registrar</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <div class="banner" style='background-image: url("https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png");'></div>
+  <div class="banner">
+    <div class="contenido">
+      <h1 class="titulo">Te estás Registrando en BarrioActivo</h1>
 
-    <h1 class="titulo">Te estas Registrando en BarrioActivo</h1>
+      <form [formGroup]="usuarioform" (ngSubmit)="register()">
+        <ion-item class="color">
+          <ion-label position="floating">Rut</ion-label>
+          <ion-input type="text" placeholder="Ingrese Rut" formControlName="rut"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" placeholder="Ingrese Nombre" formControlName="nombre"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Apellido Paterno</ion-label>
+          <ion-input type="text" placeholder="Ingrese Apellido Paterno" formControlName="a_paterno"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Apellido Materno</ion-label>
+          <ion-input type="text" placeholder="Ingrese Apellido Materno" formControlName="a_materno"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input type="email" placeholder="Ingrese su Correo" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" placeholder="Ingresar Contraseña" formControlName="contrasena"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Confirmar Contraseña</ion-label>
+          <ion-input type="password" placeholder="Ingresar Contraseña" formControlName="confirmarContrasena"></ion-input>
+        </ion-item>
 
-    <form [formGroup]="usuarioform"  (ngSubmit)="register()">
-      <ion-item>
-        <ion-label position="floating" >Rut</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Rut"   formControlName="rut"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Nombre"  formControlName="nombre"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido Paterno</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Apellido Paterno"  formControlName="a_paterno"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido Materno</ion-label>
-        <br>
-        <ion-input type="text" placeholder="Ingrese Apellido Materno"  formControlName="a_materno"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Correo Electronico</ion-label> 
-        <br>
-        <ion-input type="email" placeholder="Ingrese su Correo"  formControlName="email"></ion-input>
-      </ion-item>
+        <div class="botones">
+          <ion-button expand="full" color="primary" type="submit">Registrar</ion-button>
+          <div *ngIf="errormessage" class="error-message">{{ errormessage }}</div>
+          <ion-button expand="full" fill="clear" routerLink="/login">¿Ya tienes una cuenta? Iniciar sesión</ion-button>
+        </div>
 
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <br>
-        <ion-input type="password" placeholder="Ingresar Contraseña"  formControlName="contrasena"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Confirmar Contraseña</ion-label>
-        <br>
-        <ion-input type="password" placeholder="Ingresar Contraseña"  formControlName="confirmarContrasena"></ion-input>
-      </ion-item>
-
-      <div class="botones">
-        <ion-button expand="full" color="primary" type="submit">Registrar</ion-button>
-        <div *ngIf="errormessage" style="color: red;">{{ errormessage }}</div>
-        <ion-button expand="full" fill="clear" routerLink="/login">¿Ya tienes una cuenta? Iniciar sesion</ion-button>
-      </div>
-
-      <p class="terminos">Al continuar, aceptas los Términos de uso. Lea nuestra Política de Privacidad.</p>
-    </form>
-  </ion-content>
+        <p class="terminos">Al continuar, aceptas los Términos de uso. Lea nuestra Política de Privacidad.</p>
+      </form>
+    </div>
+  </div>
 </ion-app>
+
