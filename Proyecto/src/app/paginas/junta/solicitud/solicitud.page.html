@@ -1,6 +1,6 @@
 <ion-app>
   <ion-header>
-    <ion-toolbar >
+    <ion-toolbar>
       <ion-buttons slot="start">
         <ion-button>
           <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
@@ -11,27 +11,59 @@
   </ion-header>
 
   <ion-content class="bg-dark">
-    <div class="noticias" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
+
+    <div class="noticias"
+      style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png'); background-size: cover; background-position: center; height: 200px;">
+    </div>
 
 
-    <h3 class="contacts-title">Personas</h3>
+    <h3 class="contacts-title" style="text-align: center; margin-top: 20px; color: white;">Solicitudes Pendientes</h3>
+    <ion-list>
+      <ng-container *ngFor="let solicitud of solicitudes">
+        <ng-container *ngIf="solicitud.estado === 'Pendiente'">
+          <ion-item>
+            <ion-avatar slot="start">
+              <div class="avatar"
+                [style.background-image]="'url(' + (solicitud.avatarUrl || 'https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png') + ')'"
+                style="width: 50px; height: 50px; background-size: cover; border-radius: 50%;">
+              </div>
+            </ion-avatar>
+            <ion-label>
+              <h2 style="font-size: 1.2em; font-weight: bold;">{{ solicitud.nombre }}</h2>
+              <p style="margin-top: 5px; color: gray;">Estado: {{ solicitud.estado }}</p>
+            </ion-label>
+
+            <ion-button slot="end" color="success" (click)="aceptarSolicitud(solicitud.id)">
+              <ion-icon name="checkmark-outline"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" color="danger" (click)="rechazarSolicitud(solicitud.id)">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ng-container>
+      </ng-container>
+    </ion-list>
+
+    <h3 class="contacts-title" style="text-align: center; margin-top: 20px; color: white;">Solicitudes Pasadas</h3>
+
 
     <ion-list>
-      <ion-item >
-        <ion-avatar slot="start">
-          <div class="avatar" style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></div>
-        </ion-avatar> 
-        <ion-label>
-          <h2>Alejandro Rivera Quezada</h2>
-          <p>20849547-k</p>
-        </ion-label>
-        <ion-button slot="end" color="success">
-          <ion-icon name="checkmark-outline"></ion-icon>
-        </ion-button>
-        <ion-button slot="end" color="danger" >
-          <ion-icon name="close-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+      <ng-container *ngFor="let solicitud of solicitudes">
+        <ng-container *ngIf="solicitud.estado !== 'Pendiente'">
+          <ion-item>
+            <ion-avatar slot="start">
+              <div class="avatar"
+                [style.background-image]="'url(' + (solicitud.avatarUrl || 'https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png') + ')'"
+                style="width: 50px; height: 50px; background-size: cover; border-radius: 50%;">
+              </div>
+            </ion-avatar>
+            <ion-label>
+              <h2 style="font-size: 1.2em; font-weight: bold;">{{ solicitud.nombre }}</h2>
+              <p style="margin-top: 5px; color: gray;">Estado: {{ solicitud.estado }}</p>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ng-container>
     </ion-list>
   </ion-content>
 </ion-app>

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="solicitarUnionJunta()">
+        UNIRME
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ titulo }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-white" style="font-family: 'Inter', 'Noto Sans', sans-serif;">
+  <div class="p-4">
+    <h3 class="contacto">Administradores</h3>
+    <ng-container *ngFor="let usuario of usuarios">
+      <div *ngIf="usuario.rol === 'PRESIDENTE' || usuario.rol === 'SECRETARIO' || usuario.rol === 'TESORERO'" class="person-card">
+        <div class="avatar" 
+             [style.background-image]="'url(' + (usuario.avatarUrl || 'https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png') + ')'"></div>
+        <div class="contacto">
+          <p class="contacto">{{ usuario.rol }}</p>
+          <p class="contacto">{{ usuario.nombre }}</p>
+          <p class="contacto">Contacto: {{ usuario.email }}</p>
+        </div>
+        <ion-icon name="star" class="favorite-icon"></ion-icon>
+      </div>
+    </ng-container>
+
+    <h3 class="contacto blurred">Vecinos</h3> <!-- Aplicar clase 'blurred' aquí -->
+    <div class="vecinos-borrados">
+      <p class="message">Debes pertenecer a la junta para ver los usuarios</p>
+      <ng-container *ngFor="let usuario of usuarios">
+        <div *ngIf="usuario.rol === 'VECINO'" class="person-card blurred">
+          <div class="avatar" 
+               [style.background-image]="'url(' + (usuario.avatarUrl || 'https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png') + ')'"></div>
+          <div class="contacto">
+            <p class="contacto">{{ usuario.rol }}</p>
+            <p class="contacto">{{ usuario.nombre }}</p>
+            <p class="contacto">Contacto: {{ usuario.email }}</p>
+          </div>
+          <ion-icon name="star" class="favorite-icon"></ion-icon>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <ion-footer>
+  </ion-footer>
+</ion-content>

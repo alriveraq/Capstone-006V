@@ -44,7 +44,12 @@ const routes: Routes = [
   {
     path: 'solicitud',
     loadChildren: () => import('./paginas/junta/solicitud/solicitud.module').then( m => m.SolicitudPageModule)
+  },
+  {
+    path: 'juntaid/:id_junta',
+    loadChildren: () => import('./paginas/junta/juntaid/juntaid.module').then( m => m.JuntaidPageModule)
   }
+
 
 
 

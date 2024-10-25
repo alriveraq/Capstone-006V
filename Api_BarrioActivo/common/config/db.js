@@ -1,8 +1,8 @@
 const oracle = require('oracledb');
 
 const connection = {
-    user: 'SYSTEM',
-    password: 'Nachito289?',
+    user: 'ADMIN_JANUS',
+    password: 'A1003',
     connectionString: 'localhost/XE', // Asegúrate de que esto sea correcto
 };
 

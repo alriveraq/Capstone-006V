@@ -1,0 +1,71 @@
+.bg-white {
+    background-color: #ffffff;
+  }
+  
+  .search-bar {
+    --background: #f0f2f4;
+    --color: #111418;
+    --placeholder-color: #637588;
+  }
+  
+  .header {
+    color: #111418;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 1rem 0 0.5rem;
+  }
+  
+  .person-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .person-info {
+    flex: 1;
+  }
+  
+  .nombre {
+    color: #111418;
+    font-weight: 500;
+  }
+  
+  .rol {
+    color: #637588;
+    font-size: 0.875rem;
+  }
+  
+  .favorite-icon {
+    color: #111418;
+    font-size: 1.5rem;
+  }
+
+  .vecinos-borrados {
+    position: relative; /* Asegura que el contenedor tenga un contexto para el posicionamiento */
+  }
+  
+  .message {
+    color: red; /* Color del mensaje */
+    font-weight: bold; /* Hacer el mensaje más destacado */
+    text-align: center; /* Centrar el mensaje */
+    margin-bottom: 10px; /* Espaciado inferior */
+  }
+  
+  .blurred {
+    opacity: 0.5; /* Baja la opacidad de los vecinos */
+    pointer-events: none; /* Desactivar eventos en los vecinos */
+    filter: blur(5px);
+  }
+  
+  
+  

@@ -1,4 +1,5 @@
 const infojuntarepository = require('../repository/infojuntarepository');
+
 const obtenerInformacionPorUsuario = async (id_usuario) => {
     const id_junta = await infojuntarepository.obtenerIdJuntaPorUsuario(id_usuario);
 
@@ -17,6 +18,16 @@ const obtenerInformacionPorUsuario = async (id_usuario) => {
     };
 }
 
+const obtenerinformacionjuta = async (id_junta) => {
+    const informacion = await infojuntarepository.juntainformacion(id_junta);
+    const usuarios = await infojuntarepository.usuariosjunta(id_junta);
+
+    return {
+        informacion,
+        usuarios
+    };
+}
+
 const obtenerTodasLasJuntasService = async () => {
     const result = await infojuntarepository.obtenerTodasLasJuntas();
 
@@ -32,4 +43,26 @@ async function solicitarUnionJuntaService(id_usuario, id_presidente_junta, id_ju
     
 }
 
-module.exports = { obtenerInformacionPorUsuario, obtenerTodasLasJuntasService, solicitarUnionJuntaService};
+async function actualizarEstadoSolicitudUnionJuntaService(id_solicitud_union, estado) {
+    try {
+        return await infojuntarepository.actualizarEstadoSolicitudUnionJunta(id_solicitud_union, estado);
+    } catch (error) {
+        throw error;
+    }
+}
+
+// usamos obtenerPublicaciones del respotory
+
+async function traerpublicaciones(id_usuario) {
+    const publicaciones = await infojuntarepository.obtenerPublicaciones(id_usuario);
+    return publicaciones;
+}
+
+
+
+
+
+
+module.exports = { obtenerInformacionPorUsuario, obtenerTodasLasJuntasService, solicitarUnionJuntaService, obtenerinformacionjuta,actualizarEstadoSolicitudUnionJuntaService,
+    traerpublicaciones
+ };

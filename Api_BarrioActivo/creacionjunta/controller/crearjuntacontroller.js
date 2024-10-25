@@ -20,4 +20,22 @@ async function creacionjunta(req, res) {
     }
 }
 
-module.exports = { creacionjunta };
+async function crearpublicacion(req, res) {
+    const { u_id_junta, u_id_usuario, u_titulo, u_contenido} = req.body;
+
+    console.log('Datos recibidos:', { u_id_junta, u_id_usuario, u_titulo, u_contenido });
+
+    try {
+        await creacionjuntaservice.crearpublicacion(u_id_junta, u_id_usuario, u_titulo, u_contenido);
+
+        res.status(200).json({ message: 'Publicación creada correctamente' });
+    } catch (error) {
+        console.error('Error en el controlador de la publicación:', error);
+        return res.status(500).json({
+            code: error.code || 'INTERNAL_ERROR',
+            message: error.message || 'Error interno en el servidor',
+        });
+    }
+}
+
+module.exports = { creacionjunta, crearpublicacion };

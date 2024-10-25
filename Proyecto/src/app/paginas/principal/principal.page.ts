@@ -50,9 +50,11 @@ export class PrincipalPage implements OnInit {
           console.log('No hay juntas disponibles.');
         } else {
           console.log('Información de las juntas:', data);
+          //vemos la id de la junta
 
           this.juntas = data.map((juntaArray: any) => ({
             nombre: juntaArray[1],
+            id_junta: juntaArray[0],
           }));
 
           this.filteredjuntas = [...this.juntas]; // Inicializa la lista filtrada con todas las juntas
@@ -82,6 +84,15 @@ export class PrincipalPage implements OnInit {
     this.filteredjuntas = this.juntas.filter(junta => 
       junta.nombre.toLowerCase().includes(searchTerm)
     );
+  }
+
+  irjunta(id_junta: number) {
+    if (id_junta) {
+      this.router.navigate(['/juntaid', id_junta]);
+      console.log('ID de la junta:', id_junta);
+    } else {
+      console.error('No se encontró la ID de la junta');
+    }
   }
 }
 

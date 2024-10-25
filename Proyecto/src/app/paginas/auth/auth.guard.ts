@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const logeado = this.servicio.logeado();
-    const id_usuario = route.paramMap.get('id_usuario'); // Obtener el ID de usuario de la URL
+    const id_usuario = localStorage.getItem('id_usuario'); // Obtener el ID de usuario de la URL
 
     if (!logeado) {
       this.router.navigate(['/login']);
