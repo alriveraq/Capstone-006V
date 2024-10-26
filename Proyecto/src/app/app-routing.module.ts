@@ -45,6 +45,15 @@ const routes: Routes = [
     path: 'solicitud',
     loadChildren: () => import('./paginas/junta/solicitud/solicitud.module').then( m => m.SolicitudPageModule)
   },
+  {
+    path: 'c-publicacion',
+    loadChildren: () => import('./paginas/junta/c-publicacion/c-publicacion.module').then( m => m.CPublicacionPageModule)
+  },
+  {
+    path: 'peticion',
+    loadChildren: () => import('./paginas/junta/peticion/peticion.module').then( m => m.PeticionPageModule)
+  },
+
  
 
 

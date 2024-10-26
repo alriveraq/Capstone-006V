@@ -1,0 +1,68 @@
+<ion-app>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-buttons slot="start" routerLink="/juntap/:id_usuario">
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Crear Publicación</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="banner">
+    <div class="contenido">
+      <h1 class="titulo">Crear una Nueva Publicación</h1>
+
+      <ion-item class="color">
+        <ion-label>Tipo de Publicación</ion-label>
+        <ion-select [(ngModel)]="tipoEntrada" (ionChange)="cambiarFormulario()">
+          <ion-select-option value="noticia">Noticia</ion-select-option>
+          <ion-select-option value="reunion">Reunión</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <form *ngIf="tipoEntrada === 'noticia'">
+        <ion-item class="color">
+          <ion-label position="floating">Título</ion-label>
+          <ion-input placeholder="Ingrese Título" [(ngModel)]="titulo" name="titulo"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Imagen URL</ion-label>
+          <ion-input placeholder="Ingrese URL" [(ngModel)]="imagen" name="imagen"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input placeholder="Ingrese una pequeña descripción" [(ngModel)]="descripcion" name="descripcion"></ion-input>
+        </ion-item>
+
+
+        <ion-item class="color">
+          <ion-label>¿Desea recibir información en su correo?</ion-label>
+          <ion-checkbox [(ngModel)]="recibirCorreo" name="recibirCorreo"></ion-checkbox>
+        </ion-item>
+      </form>
+
+      <form *ngIf="tipoEntrada === 'reunion'">
+        <ion-item class="color">
+          <ion-label position="floating">Título</ion-label>
+          <ion-input placeholder="Ingrese Título" [(ngModel)]="tituloReunion" name="tituloReunion"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Fecha y Hora</ion-label>
+          <ion-datetime [(ngModel)]="fechaHora" name="fechaHora"></ion-datetime>
+        </ion-item>
+
+
+        <ion-item class="color">
+          <ion-label>¿Desea Enviar información a los correo?</ion-label>
+          <ion-checkbox [(ngModel)]="recibirCorreo" name="recibirCorreo"></ion-checkbox>
+        </ion-item>
+      </form>
+
+      <div class="botones">
+        <ion-button expand="full" color="primary" (click)="enviarFormulario()">Enviar</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-app>

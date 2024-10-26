@@ -1,0 +1,43 @@
+<ion-app>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-buttons slot="start" routerLink="/juntap/:id_usuario">
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Crear Petición</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="banner">
+    <div class="contenido">
+      <h1 class="titulo">Realizar Petición</h1>
+
+      <ion-item class="color">
+        <ion-label>Tipo de Peticion</ion-label>
+        <ion-select [(ngModel)]="tipoSolicitud">
+          <ion-select-option value="cancha">Cancha</ion-select-option>
+          <ion-select-option value="cede">Cede</ion-select-option>
+          <ion-select-option value="otro">Otro</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="color">
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input placeholder="Ingrese una descripción" [(ngModel)]="descripcionSolicitud" name="descripcionSolicitud"></ion-input>
+      </ion-item>
+
+      <ion-item class="color">
+        <ion-label position="floating">Fecha y Hora</ion-label>
+        <br>
+        <br>
+        <ion-datetime [(ngModel)]="fechaHoraSolicitud" name="fechaHoraSolicitud"></ion-datetime>
+      </ion-item>
+
+      <div class="botones">
+        <ion-button expand="full" color="primary" (click)="enviarSolicitud()">Enviar</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-app>
