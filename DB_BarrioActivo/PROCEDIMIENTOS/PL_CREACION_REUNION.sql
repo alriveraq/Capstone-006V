@@ -23,11 +23,6 @@ BEGIN
         RETURN;
     END IF;
 
-    IF u_resumen IS NULL THEN
-        u_error_code := 'PL_CR_06';
-        u_mensaje := 'El campo de la RESUMEN DE REUNIÓN no puede estar vacío.';
-    END IF;
-
     SELECT COUNT(*) INTO v_count FROM USUARIO WHERE id_usuario = u_id_usuario;
     IF v_count = 0 THEN
         u_error_code := 'PL_CR_03';

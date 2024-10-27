@@ -1,8 +1,10 @@
 CREATE OR REPLACE PROCEDURE PL_CREACION_PUBLICACION (
     u_titular IN VARCHAR2,
     u_contenido IN VARCHAR2,
+    u_imagen IN BLOB,
     u_id_usuario IN NUMBER,
     u_id_junta IN NUMBER,
+    enviar_correo IN NUMBER, -- Parámetro para almacenar la solicitud de envío de correo
     u_mensaje OUT VARCHAR2,
     u_error_code OUT VARCHAR2,
     p_id_publicacion OUT NUMBER
@@ -21,7 +23,7 @@ BEGIN
         u_mensaje := 'El CONTENIDO no puede estar vacio.';
         RETURN;
     END IF;
-    
+
     INSERT INTO PUBLICACIONES (
         id_publicaciones,
         p_titular,
@@ -29,7 +31,8 @@ BEGIN
         fecha_publicacion,
         fecha_creacion,
         id_usuario,
-        id_junta
+        id_junta,
+        imagen  
     ) VALUES (
         id_sequence.NEXTVAL,
         u_titular,
@@ -37,17 +40,22 @@ BEGIN
         SYSDATE,
         SYSDATE,
         u_id_usuario,
-        u_id_junta
+        u_id_junta,
+        u_imagen
     )
     RETURNING id_publicaciones INTO p_id_publicacion;
+    
     COMMIT;
+
     u_error_code := NULL; 
     u_mensaje := 'Publicacion registrada correctamente.';
     
-    EXCEPTION
-        WHEN OTHERS THEN
-            u_error_code := 'PL_CP_03';
-            u_mensaje := 'Error en la publicacion: ' || SQLERRM;
-            ROLLBACK;
+    -- Aquí almacenamos el valor de enviar_correo para futuras referencias
+    -- En caso de ser necesario, puedes registrar este valor en otra tabla, si lo deseas.
+
+EXCEPTION
+    WHEN OTHERS THEN
+        u_error_code := 'PL_CP_03';
+        u_mensaje := 'Error en la publicacion: ' || SQLERRM;
+        ROLLBACK;
 END PL_CREACION_PUBLICACION;
-    

@@ -48,8 +48,17 @@ const routes: Routes = [
   {
     path: 'juntaid/:id_junta',
     loadChildren: () => import('./paginas/junta/juntaid/juntaid.module').then( m => m.JuntaidPageModule)
-  }
+  },
+  {
+    path: 'c-publicacion',
+    loadChildren: () => import('./paginas/junta/c-publicacion/c-publicacion.module').then( m => m.CPublicacionPageModule)
+  },
+  {
+    path: 'peticion',
+    loadChildren: () => import('./paginas/junta/peticion/peticion.module').then( m => m.PeticionPageModule)
+  },
 
+ 
 
 
 

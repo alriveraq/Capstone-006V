@@ -107,30 +107,34 @@ async function registrarasistencia(u_id_usuario, u_id_reunion, u_asistio) {
 
 const reunion_asistecia = async (id_usuario) => {
     const query = `
-    SELECT 
-        u.id_usuario AS "ID USUARIO",
-        u.nombre || ' ' || u.a_paterno || ' ' || u.a_materno AS "NOMBRE COMPLETO",
-        r.r_tema AS "TEMA DE LA REUNION",
-        r.fecha_reunion AS "FECHA DE LA REUNION",
-        CASE 
-            WHEN a.asistio = 1 THEN 'Sí'
-            ELSE 'No'
-        END AS "ASISTENCIA"
-    FROM 
-        ASISTENCIA a
-    JOIN 
-        USUARIO u ON a.id_usuario = u.id_usuario
-    JOIN 
-        REUNIONES r ON a.id_reunion = r.id_reunion
-    WHERE 
-        r.id_junta = (SELECT id_junta FROM USUARIO WHERE id_usuario = :id_usuario)
-    ORDER BY 
-        r.fecha_reunion DESC
+        SELECT 
+            r.r_tema AS tema,
+            r.fecha_reunion AS fecha,
+            COUNT(CASE WHEN a.asistio = 1 THEN 1 END) AS total_asistentes,
+            COUNT(CASE WHEN a.asistio = 0 THEN 1 END) AS total_no_asistentes,
+            r.id_reunion AS id_reunion
+        FROM 
+            REUNIONES r
+        LEFT JOIN 
+            ASISTENCIA a ON r.id_reunion = a.id_reunion
+        WHERE 
+            r.id_junta = (SELECT id_junta FROM USUARIO WHERE id_usuario = :id_usuario)
+        GROUP BY 
+            r.id_reunion, r.r_tema, r.fecha_reunion
+        ORDER BY 
+            r.fecha_reunion
     `;
-    
-    const result = await db.execute(query, { id_usuario });
-    return result.rows;
+
+    try {
+        const result = await db.execute(query, { id_usuario });
+        return result.rows;
+    } catch (error) {
+        console.error('Error al obtener la asistencia a la reunión:', error);
+        throw error; // Maneja el error según sea necesario
+    }
 };
+
+
 
 
 module.exports = { crearReunion, registrarasistencia, reunion_asistecia };

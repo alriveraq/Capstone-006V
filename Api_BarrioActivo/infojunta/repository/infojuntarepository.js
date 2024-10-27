@@ -16,6 +16,7 @@ const juntainformacion = async (id_junta) => {
         SELECT 
             j.nombre_barrio AS "NOMBRE DEL BARRIO",
             j.direccion AS "DIRECCION",
+            j.id_junta AS "ID JUNTA",
             u_presidente.nombre || ' ' || u_presidente.a_paterno || ' ' || u_presidente.a_materno AS "PRESIDENTE",
             u_presidente.id_usuario AS "ID PRESIDENTE",
             u_presidente.email AS "CORREO PRESIDENTE",
@@ -201,6 +202,7 @@ const obtenerPublicaciones = async (id_usuario) => {
             p.p_titular AS "TITULO",
             p.contenido AS "DESCRIPCION",
             p.fecha_creacion AS "FECHA DE CREACION",
+            p.IMAGEN AS "IMAGEN",
             u.nombre || ' ' || u.a_paterno || ' ' || u.a_materno AS "AUTOR"
         FROM 
             PUBLICACIONES p
@@ -212,19 +214,47 @@ const obtenerPublicaciones = async (id_usuario) => {
             p.fecha_creacion DESC`;
 
     const result = await db.execute(query, { id_usuario });
-    
-    // Procesar CLOBs (contenido de las publicaciones)
+
+    // Procesar las publicaciones
     const publicaciones = await Promise.all(result.rows.map(async (row) => {
-        const [idPublicacion, titulo, contenidoLob, fechaCreacion, autor] = row;
-        
+        const [idPublicacion, titulo, contenidoLob, fechaCreacion, imagenBlob, autor] = row;
+
         // Leer el contenido del CLOB
-        const contenido = await contenidoLob.getData();
-        
+        let contenido = contenidoLob;
+        if (contenidoLob && typeof contenidoLob.getData === 'function') {
+            contenido = await new Promise((resolve, reject) => {
+                contenidoLob.getData((err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        }
+
+        // Leer el BLOB de la imagen y convertirlo a base64
+        let imagenBase64 = null;
+        if (imagenBlob && typeof imagenBlob.getData === 'function') {
+            imagenBase64 = await new Promise((resolve, reject) => {
+                imagenBlob.getData((err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        // Convertir el BLOB a base64
+                        const base64String = Buffer.from(data).toString('base64');
+                        resolve(`data:image/jpeg;base64,${base64String}`); // Ajusta el tipo MIME según sea necesario
+                    }
+                });
+            });
+        }
+
         return {
             idPublicacion,
             titulo,
-            contenido, // Ya es un string
+            contenido, // Ahora es un string
             fechaCreacion,
+            imagen: imagenBase64, // Imagen convertida a base64
             autor
         };
     }));

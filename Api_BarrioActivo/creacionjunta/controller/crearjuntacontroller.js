@@ -21,12 +21,12 @@ async function creacionjunta(req, res) {
 }
 
 async function crearpublicacion(req, res) {
-    const { u_id_junta, u_id_usuario, u_titulo, u_contenido} = req.body;
+    const { u_id_junta, u_id_usuario, u_titulo, u_contenido, u_imagen, enviarCorreo } = req.body;
 
-    console.log('Datos recibidos:', { u_id_junta, u_id_usuario, u_titulo, u_contenido });
+    console.log('Datos recibidos:', { u_id_junta, u_id_usuario, u_titulo, u_contenido, u_imagen, enviarCorreo});
 
     try {
-        await creacionjuntaservice.crearpublicacion(u_id_junta, u_id_usuario, u_titulo, u_contenido);
+        await creacionjuntaservice.crearpublicacion(u_id_junta, u_id_usuario, u_titulo, u_contenido, u_imagen, enviarCorreo);
 
         res.status(200).json({ message: 'Publicación creada correctamente' });
     } catch (error) {
@@ -37,5 +37,6 @@ async function crearpublicacion(req, res) {
         });
     }
 }
+
 
 module.exports = { creacionjunta, crearpublicacion };

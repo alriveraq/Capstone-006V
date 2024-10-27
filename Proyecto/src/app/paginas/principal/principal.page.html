@@ -19,8 +19,7 @@
   <ion-content>
 
     <div class="busqueda">
-      <ion-searchbar placeholder="Busca tu junta" [(ngModel)]="searchTerm"
-        (ionInput)="debounceFilter()"></ion-searchbar>
+      <ion-searchbar placeholder="Busca tu junta" [(ngModel)]="searchTerm" (ionInput)="debounceFilter()"></ion-searchbar>
     </div>
 
     <section class="seccion">
@@ -39,6 +38,7 @@
       <ul>
         <li *ngFor="let publicacion of publicaciones">
           <h4>{{ publicacion.titulo }}</h4>
+          <img [src]="publicacion.imagen" alt="Imagen de la publicación" />
           <p>{{ publicacion.contenido }}</p>
           <p><strong>Autor:</strong> {{ publicacion.autor }}</p>
           <p><strong>Fecha de creación:</strong> {{ publicacion.fechaCreacion | date }}</p>
@@ -49,24 +49,21 @@
       <p>No hay publicaciones disponibles.</p>
     </div>
 
-
     <h2>Anuncios</h2>
     <ion-list>
-      <ion-item>
+      <ion-item *ngFor="let reunion of reuniones">
         <ion-avatar slot="start"
           style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></ion-avatar>
         <ion-label>
-          <h2>Reunión</h2>
-          <p>Mañana 5 P.M</p>
+          <h2>{{ reunion.tema }}</h2>
+          <p>{{ reunion.fecha | date:'short' }}</p>
+          <p><strong>Total Asistentes:</strong> {{ reunion.total_asistentes }}</p>
+          <p><strong>Total No Asistentes:</strong> {{ reunion.total_no_asistentes }}</p>
         </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-avatar slot="start"
-          style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></ion-avatar>
-        <ion-label>
-          <h2>Elección</h2>
-          <p>Ahora</p>
-        </ion-label>
+        <div class="button-group">
+          <ion-button (click)="confirmarAsistencia(reunion.id_reunion, true)">Sí</ion-button>
+          <ion-button (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
+        </div>
       </ion-item>
     </ion-list>
 

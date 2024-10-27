@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,26 @@ export class JuntaService {
   getPublicaciones(id_usuario: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/junta/publicaciones/${id_usuario}`);
 }
+
+
+  creacionPublicacion(id_junta: number, id_usuario: number, titulo: string, contenido: string, imagen: string,  enviarCorreo: boolean): Observable<any> {
+    console.log('Enviando a la API:', { u_id_junta: id_junta, u_id_usuario: id_usuario, u_titulo: titulo, u_contenido: contenido, u_imagen: imagen, enviarCorreo: enviarCorreo });
+    return this.http.post(`${this.baseUrl}/junta/crearpublicacion`, { u_id_junta: id_junta, u_id_usuario: id_usuario, u_titulo: titulo, u_contenido: contenido, u_imagen: imagen, enviarCorreo: enviarCorreo  });
+  }
+
+  crearReunion(id_junta: number, id_usuario: number, u_tema: string, u_resumen:string, u_fecha_reunion:Date): Observable<any> {
+    console.log('Enviando a la API:', { u_id_junta: id_junta, u_id_usuario: id_usuario, u_tema: u_tema, u_resumen: u_resumen, u_fecha_reunion: u_fecha_reunion });
+    return this.http.post(`${this.baseUrl}/reunion/crearreunion`, { u_id_junta: id_junta, u_id_usuario: id_usuario, u_tema: u_tema, u_resumen: u_resumen, u_fecha_reunion: u_fecha_reunion });
+  }
+
+  registrarasistencia(id_usuario: number, id_reunion: number, u_asistio: number ): Observable<any> {
+    console.log('Enviando a la API:', { u_id_usuario: id_usuario, u_id_reunion: id_reunion, u_asistio: u_asistio });
+    return this.http.post(`${this.baseUrl}/reunion/registrarasistencia`, {u_id_usuario: id_usuario, u_id_reunion: id_reunion, u_asistio: u_asistio });
+  }
+
+  getReuniones(id_usuario: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/reunion/reuniones/${id_usuario}`);
+  }
 
 
 }

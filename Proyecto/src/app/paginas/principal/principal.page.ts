@@ -5,6 +5,7 @@ import { JuntaService } from '../junta/service/juntaservice.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { register } from 'swiper/element/bundle';
+import { AlertController } from '@ionic/angular';
 
 register();
 
@@ -19,42 +20,39 @@ export class PrincipalPage implements OnInit {
   public filteredjuntas: any[] = [];
   private searchSubject: Subject<string> = new Subject<string>();
   public juntas: any[] = [];
-  
   public publicaciones: any[] = [];
-  
-  
-
-    constructor(private login: LoginserviceService, 
-                private router: Router,
-                private api: JuntaService) { }
-
+  public reuniones: any[] = [];
+  constructor(private login: LoginserviceService, 
+              private router: Router,
+              private api: JuntaService,
+              private alertController: AlertController) { }
 
   logeado(): boolean { 
     return this.login.logeado();
   }
 
   navegarAInfoJunta() {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener la ID del usuario del localStorage
+    const id_usuario = localStorage.getItem('id_usuario');
     if (id_usuario) {
-      this.router.navigate(['/juntap', id_usuario]); // Navegar a la ruta con la ID
+      this.router.navigate(['/juntap', id_usuario]);
     } else {
       console.error('No se encontró la ID del usuario en localStorage');
     }
   }
 
   navegarAInfoUsuario() {
-    const id_usuario = localStorage.getItem('id_usuario'); // Obtener la ID del usuario del localStorage
+    const id_usuario = localStorage.getItem('id_usuario');
     if (id_usuario) {
-      this.router.navigate(['/usuariop', id_usuario]); // Navegar a la ruta con la ID
+      this.router.navigate(['/usuariop', id_usuario]);
     } else {
       console.error('No se encontró la ID del usuario en localStorage');
     }
   }
 
-
   ngOnInit() {
     this.obtenerJuntas();
     this.obtenerPublicaciones();
+    this.obtenerReuniones();
   }
 
   obtenerJuntas() {
@@ -106,7 +104,6 @@ export class PrincipalPage implements OnInit {
     }
   }
 
-
   obtenerPublicaciones() {
     const id_usuario = localStorage.getItem('id_usuario');
     if (id_usuario) {
@@ -123,22 +120,70 @@ export class PrincipalPage implements OnInit {
       console.error('No se encontró la ID del usuario en localStorage');
     }
   }
+
+  obtenerReuniones() {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (id_usuario) {
+      this.api.getReuniones(id_usuario).subscribe(
+        (data) => {
+          console.log('Reuniones:', data);
+          this.reuniones = data.map((reunionArray: any) => ({
+            tema: reunionArray[0],
+            fecha: new Date(reunionArray[1]),
+            total_asistentes: reunionArray[2],
+            total_no_asistentes: reunionArray[3],
+            id_reunion: reunionArray[4],
+          }));
+        },
+        (error) => {
+          console.error('Error al obtener las reuniones:', error);
+        }
+      );
+    } else {
+      console.error('No se encontró la ID del usuario en localStorage');
+    }
+  }
+
+
+
+  async confirmarAsistencia(id_reunion: number, asistio: boolean) {
+    const alert = await this.alertController.create({
+      header: asistio ? 'Confirmar Asistencia' : 'Confirmar Ausencia',
+      message: `¿Estás seguro de que deseas registrar tu asistencia como ${asistio ? 'Sí' : 'No'}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.registrarAsistencia(id_reunion, asistio);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  registrarAsistencia(id_reunion: number, asistio: boolean) {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (id_usuario) {
+      this.api.registrarasistencia(Number(id_usuario), id_reunion, asistio ? 1 : 0).subscribe(
+        (response) => {
+          console.log('Asistencia registrada:', response);
+          this.obtenerReuniones(); // Actualiza la lista de reuniones
+        },
+        (error) => {
+          console.error('Error al registrar asistencia:', error);
+        }
+      );
+    } else {
+      console.error('No se encontró la ID del usuario en localStorage');
+    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

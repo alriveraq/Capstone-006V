@@ -9,13 +9,14 @@ async function creacionjunta(nombre_barrio, direccion, fecha_fundacion, id_presi
     
 };
 
-async function crearpublicacion(id_junta, id_usuario, contenido, titulo) {
+
+async function crearpublicacion(id_junta, id_usuario, contenido, titulo, imagen, enviarCorreo) {
     try {
-        return await creacionjuntarepository.crearpublicacion(id_junta, id_usuario, contenido, titulo);
+        return await creacionjuntarepository.crearpublicacion(id_junta, id_usuario, contenido, titulo, imagen, enviarCorreo);
     } catch (error) {
         throw error;
     }
-    
 }
+
 
 module.exports = { creacionjunta, crearpublicacion };

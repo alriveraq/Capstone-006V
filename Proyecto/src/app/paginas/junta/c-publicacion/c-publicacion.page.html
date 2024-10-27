@@ -1,0 +1,63 @@
+<ion-app>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-buttons slot="start" routerLink="/juntap/:id_usuario">
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Crear Publicación</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="banner">
+    <div class="contenido">
+      <h1 class="titulo">Crear una Nueva Publicación</h1>
+
+      <ion-item class="color">
+        <ion-label>Tipo de Publicación</ion-label>
+        <ion-select [(ngModel)]="tipoEntrada" (ionChange)="cambiarFormulario()">
+          <ion-select-option value="noticia">Noticia</ion-select-option>
+          <ion-select-option value="reunion">Reunión</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <form *ngIf="tipoEntrada === 'noticia'" [formGroup]="publicacionform">
+        <ion-item class="color">
+          <ion-label position="floating">Título</ion-label>
+          <ion-input formControlName="titulo" placeholder="Ingrese Título"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Contenido</ion-label>
+          <ion-input formControlName="contenido" placeholder="Ingrese Contenido"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label>Imagen</ion-label>
+          <ion-button (click)="triggerFileInput()">Subir Imagen</ion-button>
+          <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label>¿Desea recibir información en su correo?</ion-label>
+          <ion-checkbox formControlName="enviarPorCorreo"></ion-checkbox>
+        </ion-item>
+      </form>
+
+      <form *ngIf="tipoEntrada === 'reunion'" [formGroup]="reunionform">
+        <ion-item class="color">
+          <ion-label position="floating">Título</ion-label>
+          <ion-input formControlName="tema" placeholder="Ingrese Título"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Fecha y Hora</ion-label>
+          <ion-datetime formControlName="u_fecha_reunion"></ion-datetime>
+        </ion-item>
+      </form>
+
+      <div class="botones">
+        <ion-button expand="full" color="primary" (click)="tipoEntrada === 'noticia' ? cPublicacion() : cReunion()">
+          Enviar
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-app>

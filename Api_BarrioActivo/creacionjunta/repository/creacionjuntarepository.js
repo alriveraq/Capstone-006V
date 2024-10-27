@@ -1,6 +1,9 @@
 const db = require("../../common/config/db");
 const oracle = require("oracledb");
 
+const { enviarCorreoJunta } = require('../service/correoservice'); // Cambia la ruta según tu estructura de proyecto
+
+
 async function crearjunta(
   u_nombre_barrio,
   u_direccion,
@@ -70,29 +73,52 @@ async function crearjunta(
   }
 }
 
+async function obtenerCorreosJunta(id_junta) {
+  const query = `
+        SELECT email
+        FROM USUARIO
+        WHERE id_junta = :id_junta`;
+
+  const result = await db.execute(query, { id_junta });
+  return result.rows.map((row) => row[0]); // Devuelve una lista de correos
+}
+
 async function crearpublicacion(
   u_id_junta,
   u_id_usuario,
-  u_titulo,
-  u_contenido
+  u_titular,  // Cambié de u_titulo a u_titular
+  u_contenido,
+  u_imagen, // Asegúrate de que esto sea un Buffer o un BLOB
+  enviarCorreo
 ) {
   let connection;
   try {
-    console.log("Datos recibidos en repositorio:", {
-      u_id_junta,
-      u_id_usuario,
-      u_titulo,
-      u_contenido,
-    });
+    let imagenBuffer;
+    if (typeof u_imagen === "string" && u_imagen.startsWith("data:image/")) {
+      const base64Data = u_imagen.split(",")[1];
+      imagenBuffer = Buffer.from(base64Data, "base64");
+    } else if (Buffer.isBuffer(u_imagen)) {
+      imagenBuffer = u_imagen; // Asegúrate de que sea un Buffer
+    } else {
+      throw new Error(
+        "El formato de la imagen no es válido. Debe ser un Buffer o una cadena Base64."
+      );
+    }
+
     connection = await db.getConnection();
 
+    // Convertir enviarCorreo a un valor numérico (1 para true, 0 para false)
+    const enviarCorreoValue = enviarCorreo ? 1 : 0;
+
     const result = await connection.execute(
-      `CALL PL_CREACION_PUBLICACION(:titulo, :contenido, :id_usuario, :id_junta, :mensaje, :error_code, :id_publicaciones)`,
+      `CALL PL_CREACION_PUBLICACION(:u_titular, :u_contenido, :u_imagen, :u_id_usuario, :u_id_junta, :enviar_correo, :mensaje, :error_code, :id_publicaciones)`,
       {
-        titulo: { val: u_titulo, dir: oracle.BIND_IN },
-        contenido: { val: u_contenido, dir: oracle.BIND_IN },
-        id_usuario: { val: u_id_usuario, dir: oracle.BIND_IN },
-        id_junta: { val: u_id_junta, dir: oracle.BIND_IN },
+        u_titular: { val: u_titular, dir: oracle.BIND_IN, type: oracle.STRING },
+        u_contenido: { val: u_contenido, dir: oracle.BIND_IN, type: oracle.STRING },
+        u_imagen: { val: imagenBuffer, dir: oracle.BIND_IN, type: oracle.BLOB },
+        u_id_usuario: { val: parseInt(u_id_usuario, 10), dir: oracle.BIND_IN, type: oracle.NUMBER }, // Asegúrate de que sea un número
+        u_id_junta: { val: parseInt(u_id_junta, 10), dir: oracle.BIND_IN, type: oracle.NUMBER }, // Asegúrate de que sea un número
+        enviar_correo: { val: enviarCorreoValue, dir: oracle.BIND_IN, type: oracle.NUMBER }, // Convertir a número
         mensaje: { dir: oracle.BIND_OUT, type: oracle.STRING },
         error_code: { dir: oracle.BIND_OUT, type: oracle.STRING },
         id_publicaciones: { dir: oracle.BIND_OUT, type: oracle.NUMBER },
@@ -109,6 +135,14 @@ async function crearpublicacion(
       });
     } else {
       console.log("Inserción exitosa:", u_mensaje);
+
+      if (enviarCorreo) {
+        const correos = await obtenerCorreosJunta(u_id_junta);
+        console.log("Correos obtenidos:", correos);
+        await enviarCorreoJunta(correos, u_titular, u_contenido, imagenBuffer);
+      }
+
+      return { id_publicaciones: result.outBinds.id_publicaciones };
     }
   } catch (error) {
     console.error("Error executing stored procedure from repository:", error);
@@ -123,5 +157,8 @@ async function crearpublicacion(
     }
   }
 }
+
+
+
 
 module.exports = { crearjunta, crearpublicacion };

@@ -31,6 +31,9 @@ export class JuntapPage implements OnInit {
         if (data.informacion.length === 0) {
         } else {
           console.log('Información de la junta:', data);
+
+          const idJunta = data.informacion[0][2]; // Cambia el índice si la ID no está en esta posición
+          localStorage.setItem('id_junta', idJunta.toString());
           this.titulo = data.informacion[0][0];
 
           this.usuarios = data.usuarios.map((usuarioArray: any) => ({

@@ -43,8 +43,10 @@ CREATE TABLE PUBLICACIONES (
     contenido CLOB NOT NULL,
     fecha_publicacion DATE,
     fecha_creacion DATE DEFAULT SYSDATE,
+    enviar_correo NUMBER,
     id_usuario NUMBER REFERENCES USUARIO(id_usuario),
-    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta)
+    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta),
+    imagen BLOB
 );
 
 CREATE TABLE SOLICITUDES_UNION_JUNTA (
