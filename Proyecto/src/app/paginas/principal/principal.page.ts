@@ -20,24 +20,7 @@ export class PrincipalPage implements OnInit {
   private searchSubject: Subject<string> = new Subject<string>();
   public juntas: any[] = [];
   
-  noticias = [
-    {
-      imagenUrl: 'https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png',
-      titulo: 'Noticia 1',
-      descripcion: 'Descripción de la noticia 1',
-    },
-    {
-      imagenUrl: 'https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png',
-      titulo: 'Noticia 2',
-      descripcion: 'Descripción de la noticia 2',
-    },
-    {
-      imagenUrl: 'https://blog.jumboprinters.com/wp-content/uploads/2021/09/consejos-imagenes.jpg',
-      titulo: 'Noticia 2',
-      descripcion: 'Descripción de la noticia 2',
-    },
- 
-  ];
+  public publicaciones: any[] = [];
   
   
 
@@ -70,20 +53,22 @@ export class PrincipalPage implements OnInit {
 
 
   ngOnInit() {
+    this.obtenerJuntas();
+    this.obtenerPublicaciones();
+  }
+
+  obtenerJuntas() {
     this.api.getjuntas().subscribe(
-      (data) => {
+      (data) => { 
         if (data.length === 0) {
           console.log('No hay juntas disponibles.');
         } else {
           console.log('Información de las juntas:', data);
-          //vemos la id de la junta
-
           this.juntas = data.map((juntaArray: any) => ({
             nombre: juntaArray[1],
             id_junta: juntaArray[0],
           }));
-
-          this.filteredjuntas = [...this.juntas]; // Inicializa la lista filtrada con todas las juntas
+          this.filteredjuntas = [...this.juntas];
           this.setupSearch();
         }
       },
@@ -118,6 +103,24 @@ export class PrincipalPage implements OnInit {
       console.log('ID de la junta:', id_junta);
     } else {
       console.error('No se encontró la ID de la junta');
+    }
+  }
+
+
+  obtenerPublicaciones() {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (id_usuario) {
+      this.api.getPublicaciones(id_usuario).subscribe(
+        (data) => {
+          console.log('Publicaciones:', data);
+          this.publicaciones = data;
+        },
+        (error) => {
+          console.error('Error al obtener las publicaciones:', error);
+        }
+      );
+    } else {
+      console.error('No se encontró la ID del usuario en localStorage');
     }
   }
 }

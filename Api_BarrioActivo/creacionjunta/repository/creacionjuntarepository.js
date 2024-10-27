@@ -78,11 +78,11 @@ async function crearpublicacion(
 ) {
   let connection;
   try {
-    console.log('Datos recibidos en repositorio:', {
+    console.log("Datos recibidos en repositorio:", {
       u_id_junta,
       u_id_usuario,
       u_titulo,
-      u_contenido
+      u_contenido,
     });
     connection = await db.getConnection();
 
@@ -108,7 +108,7 @@ async function crearpublicacion(
         message: u_mensaje,
       });
     } else {
-      console.log('Inserción exitosa:', u_mensaje);
+      console.log("Inserción exitosa:", u_mensaje);
     }
   } catch (error) {
     console.error("Error executing stored procedure from repository:", error);
@@ -123,7 +123,5 @@ async function crearpublicacion(
     }
   }
 }
-
-
 
 module.exports = { crearjunta, crearpublicacion };

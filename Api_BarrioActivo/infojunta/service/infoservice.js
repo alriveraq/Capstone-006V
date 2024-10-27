@@ -51,7 +51,6 @@ async function actualizarEstadoSolicitudUnionJuntaService(id_solicitud_union, es
     }
 }
 
-// usamos obtenerPublicaciones del respotory
 
 async function traerpublicaciones(id_usuario) {
     const publicaciones = await infojuntarepository.obtenerPublicaciones(id_usuario);

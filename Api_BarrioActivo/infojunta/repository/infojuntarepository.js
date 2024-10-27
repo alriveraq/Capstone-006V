@@ -8,7 +8,7 @@ const obtenerIdJuntaPorUsuario = async (id_usuario) => {
         WHERE id_usuario = :id_usuario
     `;
     const result = await db.execute(query, { id_usuario });
-    return result.rows.length > 0 ? result.rows[0][0] : null; // Retorna la id_junta o null
+    return result.rows.length > 0 ? result.rows[0][0] : null;
 }
 
 const juntainformacion = async (id_junta) => {

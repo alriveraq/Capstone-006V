@@ -91,7 +91,8 @@ CREATE TABLE ASISTENCIA (
     fecha_asistencia DATE DEFAULT SYSDATE,
     id_reunion NUMBER REFERENCES REUNIONES(id_reunion) ON DELETE CASCADE,
     id_usuario NUMBER REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
-    UNIQUE (id_reunion, id_usuario) -- Un usuario solo puede registrar una asistencia por reunión
+    asistio NUMBER(1) DEFAULT 1,
+    UNIQUE (id_reunion, id_usuario)
 );
 
 CREATE TABLE VOTACIONES (

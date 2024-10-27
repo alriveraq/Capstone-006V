@@ -37,5 +37,11 @@ export class JuntaService {
   actualizarEstadoSolicitud(id_solicitud_union: number, estado: string) {
     console.log('Enviando a la API:', { id_solicitud_union, estado });
     return this.http.put(`${this.baseUrl}/junta/solicitar/${id_solicitud_union}`, { estado });
+  }
+
+  getPublicaciones(id_usuario: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/junta/publicaciones/${id_usuario}`);
 }
+
+
 }

@@ -1,5 +1,6 @@
 CREATE OR REPLACE PROCEDURE PL_CREACION_REUNION (
     u_tema IN VARCHAR2,
+    u_resumen IN VARCHAR2,
     u_fecha_reunion IN DATE,
     u_id_usuario IN NUMBER,
     u_id_junta IN NUMBER,
@@ -20,6 +21,11 @@ BEGIN
         u_error_code := 'PL_CR_02';
         u_mensaje := 'El campo de la FECHA DE REUNIÓN no puede estar vacío.';
         RETURN;
+    END IF;
+
+    IF u_resumen IS NULL THEN
+        u_error_code := 'PL_CR_06';
+        u_mensaje := 'El campo de la RESUMEN DE REUNIÓN no puede estar vacío.';
     END IF;
 
     SELECT COUNT(*) INTO v_count FROM USUARIO WHERE id_usuario = u_id_usuario;
@@ -46,7 +52,7 @@ BEGIN
     ) VALUES (
         id_sequence.NEXTVAL,
         u_tema,
-        NULL,
+        u_resumen,
         u_fecha_reunion,
         u_id_usuario,
         u_id_junta
@@ -55,7 +61,7 @@ BEGIN
 
     COMMIT;
     u_error_code := NULL; 
-    u_mensaje := 'Reunión registrada exitosamente. ID: ' || p_id_reunion;
+    u_mensaje := 'Reunión registrada exitosamente';
 
 EXCEPTION
     WHEN OTHERS THEN
