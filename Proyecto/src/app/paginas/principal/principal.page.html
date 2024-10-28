@@ -33,18 +33,20 @@
     </section>
 
     <h2>Últimas noticias</h2>
-    <div *ngIf="publicaciones.length > 0">
-      <h3>Publicaciones</h3>
-      <ul>
-        <li *ngFor="let publicacion of publicaciones">
-          <h4>{{ publicacion.titulo }}</h4>
-          <img [src]="publicacion.imagen" alt="Imagen de la publicación" />
-          <p>{{ publicacion.contenido }}</p>
-          <p><strong>Autor:</strong> {{ publicacion.autor }}</p>
-          <p><strong>Fecha de creación:</strong> {{ publicacion.fechaCreacion | date }}</p>
-        </li>
-      </ul>
-    </div>
+
+    <swiper-container autoplay="true" pagination="true" navigation="true" class="mySwiper">
+      <ng-container *ngFor="let publicacion of publicaciones">
+        <swiper-slide >
+          <img class="imagen" [src]="publicacion.imagen" alt="Imagen de la publicación" />  
+          <div class="noticia-content">  
+            <h3>{{ publicacion.titulo }}</h3>
+            <p>{{ publicacion.contenido }}</p>
+          </div>
+        </swiper-slide>
+      </ng-container>
+    </swiper-container>
+
+
     <div *ngIf="publicaciones.length === 0">
       <p>No hay publicaciones disponibles.</p>
     </div>
@@ -61,8 +63,8 @@
           <p><strong>Total No Asistentes:</strong> {{ reunion.total_no_asistentes }}</p>
         </ion-label>
         <div class="button-group">
-          <ion-button (click)="confirmarAsistencia(reunion.id_reunion, true)">Sí</ion-button>
-          <ion-button (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
+          <ion-button color="success" (click)="confirmarAsistencia(reunion.id_reunion, true)">Sí</ion-button>
+          <ion-button color="danger" (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
         </div>
       </ion-item>
     </ion-list>

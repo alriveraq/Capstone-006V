@@ -136,3 +136,24 @@ ion-icon {
   
 }
 
+.swiper-slide {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 150px;
+}
+
+.noticia-content {
+  background: rgba(0, 0, 0, 0.5); 
+  color: white; 
+  padding: -10px; 
+  border-radius: 5px; 
+  position: absolute; 
+  bottom: 155px; 
+  left: 10px; 
+  right: 10px; 
+}
+
+
