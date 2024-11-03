@@ -1,13 +1,13 @@
 const reunionesservice = require('../service/reunionesservice');
 
 async function crearReunion(req, res) {
-    const { u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta } = req.body;
+    const { u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta, enviarCorreo} = req.body;
 
-    console.log('Datos recibidos:', { u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta });
+    console.log('Datos recibidos:', { u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta, enviarCorreo });
 
     try {
         const date = new Date(u_fecha_reunion);
-        await reunionesservice.crearReunion(u_tema, u_resumen, date, u_id_usuario, u_id_junta);
+        await reunionesservice.crearReunion(u_tema, u_resumen, date, u_id_usuario, u_id_junta, enviarCorreo);
 
         res.status(200).json({ message: 'Reunión creada correctamente' });
     } catch (error) {

@@ -1,8 +1,8 @@
 const reunionesrepository = require('../repository/reunionesrepository');
 
-async function crearReunion(u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta) {
+async function crearReunion(u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta, enviarCorreo) {
     try {
-        return await reunionesrepository.crearReunion(u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta);
+        return await reunionesrepository.crearReunion(u_tema, u_resumen, u_fecha_reunion, u_id_usuario, u_id_junta, enviarCorreo);
     } catch (error) {
         throw error;
     }

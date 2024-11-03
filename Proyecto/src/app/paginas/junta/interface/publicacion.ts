@@ -4,7 +4,7 @@ export class publicaciones {
     titulo: string;
     contenido: string;
     imagen: string;
-    enviarCorreo: boolean; // Nuevo campo para enviar copia al correo
+    enviarCorreo: boolean;
 
     constructor(obj: any) {
         this.id_junta = obj && obj.id_junta || null; // Corregido id_jutna a id_junta

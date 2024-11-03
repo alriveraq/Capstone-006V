@@ -17,7 +17,7 @@ const esCorreoValido = correo => {
     return re.test(correo);
 };
 
-const enviarCorreoJunta = async (correos, titulo, contenido, imagenBuffer) => {
+const enviarCorreoJunta = async (correos, tema, fechainicio, fechatermino) => {
     // Limpia la lista de correos
     const correosLimpios = correos
         .map(correo => correo.trim())
@@ -36,20 +36,12 @@ const enviarCorreoJunta = async (correos, titulo, contenido, imagenBuffer) => {
         const mailOptions = {
             from: userGmail,
             to: "aleparique@gmail.com", // Agrupar los correos en un solo string
-            subject: `Nueva Publicación: ${titulo}`,
+            subject: `Nueva Publicación: ${tema}`,
             html: `
-                <h1>${titulo}</h1>
-                <p>${contenido}</p>
-                <img src="cid:imagen" alt="Imagen de la publicación" />
+                <h1>${tema}</h1>
+                <p>Fecha de inicio de las votaciones: ${fechainicio}</p>
+                <p>Fecha de termino de las votaciones: ${fechatermino}</p>
             `,
-            attachments: [
-                {
-                    filename: 'imagen.png',
-                    content: imagenBuffer,
-                    contentType: 'image/png',
-                    cid: 'imagen' // Este CID se usará en el src del img
-                }
-            ]
         };
 
         try {

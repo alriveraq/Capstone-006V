@@ -50,9 +50,9 @@ export class JuntaService {
     return this.http.post(`${this.baseUrl}/junta/crearpublicacion`, { u_id_junta: id_junta, u_id_usuario: id_usuario, u_titulo: titulo, u_contenido: contenido, u_imagen: imagen, enviarCorreo: enviarCorreo  });
   }
 
-  crearReunion(id_junta: number, id_usuario: number, u_tema: string, u_resumen:string, u_fecha_reunion:Date): Observable<any> {
-    console.log('Enviando a la API:', { u_id_junta: id_junta, u_id_usuario: id_usuario, u_tema: u_tema, u_resumen: u_resumen, u_fecha_reunion: u_fecha_reunion });
-    return this.http.post(`${this.baseUrl}/reunion/crearreunion`, { u_id_junta: id_junta, u_id_usuario: id_usuario, u_tema: u_tema, u_resumen: u_resumen, u_fecha_reunion: u_fecha_reunion });
+  crearReunion(id_junta: number, id_usuario: number, u_tema: string, u_resumen:string, u_fecha_reunion:Date,  enviarCorreo: boolean): Observable<any> {
+    console.log('Enviando a la API:', { u_id_junta: id_junta, u_id_usuario: id_usuario, u_tema: u_tema, u_resumen: u_resumen, u_fecha_reunion: u_fecha_reunion,  enviarCorreo: enviarCorreo });
+    return this.http.post(`${this.baseUrl}/reunion/crearreunion`, { u_id_junta: id_junta, u_id_usuario: id_usuario, u_tema: u_tema, u_resumen: u_resumen, u_fecha_reunion: u_fecha_reunion, enviarCorreo: enviarCorreo });
   }
 
   registrarasistencia(id_usuario: number, id_reunion: number, u_asistio: number ): Observable<any> {

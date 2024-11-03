@@ -4,6 +4,7 @@ CREATE OR REPLACE PROCEDURE PL_CREACION_REUNION (
     u_fecha_reunion IN DATE,
     u_id_usuario IN NUMBER,
     u_id_junta IN NUMBER,
+    enviar_correo IN NUMBER,
     u_mensaje OUT VARCHAR2,
     u_error_code OUT VARCHAR2,
     p_id_reunion OUT NUMBER
@@ -42,6 +43,7 @@ BEGIN
         r_tema,
         resumen,
         fecha_reunion,
+        enviar_correo,
         id_usuario,
         id_junta
     ) VALUES (
@@ -49,6 +51,7 @@ BEGIN
         u_tema,
         u_resumen,
         u_fecha_reunion,
+        enviar_correo,
         u_id_usuario,
         u_id_junta
     )

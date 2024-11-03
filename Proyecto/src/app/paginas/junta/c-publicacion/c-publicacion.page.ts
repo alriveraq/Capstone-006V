@@ -16,8 +16,8 @@ export class CPublicacionPage implements OnInit {
   publicacionform!: FormGroup;
   reunionform!: FormGroup;
   selectedImage: File | null = null;
-  enviarPorCorreo: boolean = false; // Nueva propiedad para el checkbox
-  tipoEntrada: string = 'noticia'; // Variable para seleccionar el tipo de entrada
+  enviarPorCorreo: boolean = false; 
+  tipoEntrada: string = 'noticia';
 
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
 
@@ -33,12 +33,13 @@ export class CPublicacionPage implements OnInit {
       'titulo': ['', [Validators.required]],
       'contenido': ['', [Validators.required]],
       'imagen': ['', [Validators.required]],
-      'enviarPorCorreo': [false], // Inicializa el control para el checkbox
+      'enviarPorCorreo': [false],
     });
 
     this.reunionform = this.formBuilder.group({
       'tema': ['', [Validators.required]],
       'u_fecha_reunion': ['', [Validators.required]],
+      'enviarPorCorreo': [false],
     });
   }
 
@@ -83,16 +84,11 @@ export class CPublicacionPage implements OnInit {
       return;
     }
 
-    const loading = await this.loadingController.create({
-      message: 'Creando publicación...',
-    });
-    await loading.present();
-
     const publicacionData: publicaciones = {
       ...this.publicacionform.value,
       id_usuario: localStorage.getItem('id_usuario'),
       id_junta: localStorage.getItem('id_junta'),
-      enviarCorreo: this.publicacionform.value.enviarPorCorreo, // Agregando el estado del checkbox
+      enviarCorreo: this.publicacionform.value.enviarPorCorreo, 
     };
 
     console.log('Datos a enviar:', publicacionData);
@@ -113,7 +109,6 @@ export class CPublicacionPage implements OnInit {
         },
         async (error) => {
           console.error('Error de la API:', error);
-          await loading.dismiss();
         }
       );
   }
@@ -133,6 +128,7 @@ export class CPublicacionPage implements OnInit {
       id_usuario: localStorage.getItem('id_usuario'),
       id_junta: localStorage.getItem('id_junta'),
       resumen: ' ',
+      enviarCorreo: this.reunionform.value.enviarPorCorreo, 
     };
 
     console.log('Datos a enviar:', reunionData);
@@ -143,9 +139,9 @@ export class CPublicacionPage implements OnInit {
         reunionData.id_usuario,
         reunionData.tema,
         reunionData.resumen,
-        new Date(reunionData.u_fecha_reunion)
-      )
-      .subscribe(
+        new Date(reunionData.u_fecha_reunion),
+        reunionData.enviarCorreo,
+      ).subscribe(
         async (response) => {
           console.log('Respuesta de la API:', response);
           this.router.navigate(['/principal']);

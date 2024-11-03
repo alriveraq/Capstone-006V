@@ -14,6 +14,8 @@ const creacionjuntaroutes = require('./creacionjunta/route/creacionjuntaroute');
 const infojuntaroutes = require('./infojunta/route/infojuntaroute');
 const usuarioroutes = require('./usuario/route/usuarioroute');
 const reunionesroutes = require('./reuniones/route/reunionroute');
+const votacionesroutes = require('./votaciones/route/votacionesroute');
+const pandelroutes = require('./panel_de_control/route/pandelroute');
 
 app.use(express.json());
 app.use(cors());
@@ -24,6 +26,8 @@ app.use('/api', registerroutes);
 app.use('/api', creacionjuntaroutes);
 app.use('/api', infojuntaroutes);
 app.use('/api', reunionesroutes);
+app.use('/api', votacionesroutes);
+app.use('/api', pandelroutes);
 
 initialize().then(() => {
     server.listen(port, () => {

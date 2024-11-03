@@ -80,15 +80,15 @@ async function obtenerCorreosJunta(id_junta) {
         WHERE id_junta = :id_junta`;
 
   const result = await db.execute(query, { id_junta });
-  return result.rows.map((row) => row[0]); // Devuelve una lista de correos
+  return result.rows.map((row) => row[0]); 
 }
 
 async function crearpublicacion(
   u_id_junta,
   u_id_usuario,
-  u_titular,  // Cambié de u_titulo a u_titular
+  u_titular,
   u_contenido,
-  u_imagen, // Asegúrate de que esto sea un Buffer o un BLOB
+  u_imagen, 
   enviarCorreo
 ) {
   let connection;
@@ -98,7 +98,7 @@ async function crearpublicacion(
       const base64Data = u_imagen.split(",")[1];
       imagenBuffer = Buffer.from(base64Data, "base64");
     } else if (Buffer.isBuffer(u_imagen)) {
-      imagenBuffer = u_imagen; // Asegúrate de que sea un Buffer
+      imagenBuffer = u_imagen;
     } else {
       throw new Error(
         "El formato de la imagen no es válido. Debe ser un Buffer o una cadena Base64."
@@ -107,7 +107,6 @@ async function crearpublicacion(
 
     connection = await db.getConnection();
 
-    // Convertir enviarCorreo a un valor numérico (1 para true, 0 para false)
     const enviarCorreoValue = enviarCorreo ? 1 : 0;
 
     const result = await connection.execute(
@@ -116,9 +115,9 @@ async function crearpublicacion(
         u_titular: { val: u_titular, dir: oracle.BIND_IN, type: oracle.STRING },
         u_contenido: { val: u_contenido, dir: oracle.BIND_IN, type: oracle.STRING },
         u_imagen: { val: imagenBuffer, dir: oracle.BIND_IN, type: oracle.BLOB },
-        u_id_usuario: { val: parseInt(u_id_usuario, 10), dir: oracle.BIND_IN, type: oracle.NUMBER }, // Asegúrate de que sea un número
-        u_id_junta: { val: parseInt(u_id_junta, 10), dir: oracle.BIND_IN, type: oracle.NUMBER }, // Asegúrate de que sea un número
-        enviar_correo: { val: enviarCorreoValue, dir: oracle.BIND_IN, type: oracle.NUMBER }, // Convertir a número
+        u_id_usuario: { val: parseInt(u_id_usuario, 10), dir: oracle.BIND_IN, type: oracle.NUMBER },
+        u_id_junta: { val: parseInt(u_id_junta, 10), dir: oracle.BIND_IN, type: oracle.NUMBER }, 
+        enviar_correo: { val: enviarCorreoValue, dir: oracle.BIND_IN, type: oracle.NUMBER }, 
         mensaje: { dir: oracle.BIND_OUT, type: oracle.STRING },
         error_code: { dir: oracle.BIND_OUT, type: oracle.STRING },
         id_publicaciones: { dir: oracle.BIND_OUT, type: oracle.NUMBER },

@@ -88,7 +88,7 @@ export class RegistercomponentComponent implements OnInit {
     ).subscribe(
       async (response) => {
         await loading.dismiss();
-        this.router.navigate(['/principal']);
+        this.router.navigate(['/login']);
       },
       async (error) => {
         await loading.dismiss();

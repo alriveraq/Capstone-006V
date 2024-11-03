@@ -66,6 +66,7 @@ CREATE TABLE PROYECTOS (
     fecha_inicio DATE,
     fecha_fin DATE,
     fecha_creacion DATE DEFAULT SYSDATE,
+    enviar_correo NUMBER,
     id_usuario NUMBER REFERENCES USUARIO(id_usuario),
     id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta)
 );
@@ -84,6 +85,7 @@ CREATE TABLE REUNIONES (
     r_tema VARCHAR2(50) NOT NULL,
     resumen CLOB NOT NULL,
     fecha_reunion DATE,
+    enviar_correo NUMBER,
     id_usuario NUMBER REFERENCES USUARIO(id_usuario),
     id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta)
 );
@@ -103,7 +105,9 @@ CREATE TABLE VOTACIONES (
     v_fecha_inicio DATE NOT NULL,
     v_fecha_fin DATE NOT NULL,
     v_fecha_creacion DATE DEFAULT SYSDATE,
-    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta)
+    enviar_correo NUMBER,
+    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta),
+    id_usuario NUMBER REFERENCES USUARIO(id_usuario)
 );
 
 CREATE TABLE INFO_VOTACION (
@@ -112,4 +116,17 @@ CREATE TABLE INFO_VOTACION (
     id_usuario NUMBER REFERENCES USUARIO(id_usuario),
     voto_tipo VARCHAR2(50) NOT NULL,
     CONSTRAINT unique_usuario_votacion UNIQUE (id_usuario, id_votaciones)
+);
+
+CREATE TABLE SOLICITUDES_SEDES (
+    id_solicitud NUMBER PRIMARY KEY,
+    id_usuario NUMBER REFERENCES USUARIO(id_usuario), 
+    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta),    
+    tipo_solicitud VARCHAR2(50) NOT NULL,           
+    fecha_solicitud DATE DEFAULT SYSDATE,            
+    fecha_inicio DATE NOT NULL,                       
+    fecha_fin DATE NOT NULL,                          
+    estado VARCHAR2(20) DEFAULT 'pendiente',         
+    descripcion VARCHAR2(255),                        
+    CONSTRAINT chk_fechas CHECK (fecha_inicio < fecha_fin)
 );
