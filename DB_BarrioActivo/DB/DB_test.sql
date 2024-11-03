@@ -126,7 +126,26 @@ CREATE TABLE SOLICITUDES_SEDES (
     fecha_solicitud DATE DEFAULT SYSDATE,            
     fecha_inicio DATE NOT NULL,                       
     fecha_fin DATE NOT NULL,                          
-    estado VARCHAR2(20) DEFAULT 'pendiente',         
+    estado VARCHAR2(20) DEFAULT 'Pendiente',         
     descripcion VARCHAR2(255),                        
     CONSTRAINT chk_fechas CHECK (fecha_inicio < fecha_fin)
+);
+
+CREATE TABLE PAGOS (
+    id_pagos NUMBER PRIMARY KEY,
+    concepto_pago VARCHAR2(100) NOT NULL,
+    monto NUMBER NOT NULL,
+    id_junta NUMBER REFERENCES JUNTA_DE_VECINOS(id_junta),
+    fecha_creacion DATE DEFAULT SYSDATE
+);
+
+
+CREATE TABLE REGISTROS_PAGOS (
+    id_registos_pago NUMBER PRIMARY KEY,
+    id_pagos NUMBER REFERENCES PAGOS(id_pagos), 
+    id_usuario NUMBER REFERENCES USUARIO(id_usuario),
+    monto NUMBER NOT NULL,
+    estado_pago VARCHAR2(20) DEFAULT 'Comprobando',
+    imagen_transferencia BLOB,
+    fecha_pago DATE DEFAULT SYSDATE 
 );
