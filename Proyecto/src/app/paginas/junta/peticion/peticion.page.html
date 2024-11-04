@@ -13,31 +13,36 @@
   <div class="banner">
     <div class="contenido">
       <h1 class="titulo">Realizar Petición</h1>
-
-      <ion-item class="color">
-        <ion-label>Tipo de Peticion</ion-label>
-        <ion-select [(ngModel)]="tipoSolicitud">
-          <ion-select-option value="cancha">Cancha</ion-select-option>
-          <ion-select-option value="cede">Cede</ion-select-option>
-          <ion-select-option value="otro">Otro</ion-select-option>
-        </ion-select>
-      </ion-item>
+      <form [formGroup]="peticionform">
+        <ion-item class="color">
+          <ion-label position="floating">Tema</ion-label>
+          <ion-input formControlName="tipo_solicitud" placeholder="Ingrese que desea solicitar" formControlName="tema" name="descripcionSolicitud"></ion-input>
+        </ion-item>
+  
 
       <ion-item class="color">
         <ion-label position="floating">Descripción</ion-label>
-        <ion-input placeholder="Ingrese una descripción" [(ngModel)]="descripcionSolicitud" name="descripcionSolicitud"></ion-input>
+        <ion-input formControlName="descripcion" placeholder="Ingrese una descripción" formControlName="tema" name="descripcionSolicitud"></ion-input>
       </ion-item>
 
       <ion-item class="color">
-        <ion-label position="floating">Fecha y Hora</ion-label>
+        <ion-label position="floating">Fecha y Hora de inicio</ion-label>
         <br>
         <br>
-        <ion-datetime [(ngModel)]="fechaHoraSolicitud" name="fechaHoraSolicitud"></ion-datetime>
+        <ion-datetime formControlName="fecha_inicio" name="fechaHoraSolicitud"></ion-datetime>
+      </ion-item>
+
+      <ion-item class="color">
+        <ion-label position="floating">Fecha y Hora de fin</ion-label>
+        <br>
+        <br>
+        <ion-datetime formControlName="fecha_fin" name="fechaHoraSolicitud"></ion-datetime>
       </ion-item>
 
       <div class="botones">
         <ion-button expand="full" color="primary" (click)="enviarSolicitud()">Enviar</ion-button>
       </div>
+    </form>   
     </div>
   </div>
 </ion-app>

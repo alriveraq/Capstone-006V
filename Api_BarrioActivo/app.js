@@ -19,6 +19,8 @@ const pandelroutes = require('./panel_de_control/route/pandelroute');
 const pagosroutes = require('./pagos/route/pagosroute');
 const solicitudes = require('./solicitudes_sedes/route/solicitudroute');
 
+app.use(express.json({ limit: '100mb' })); 
+
 app.use(express.json());
 app.use(cors());
 

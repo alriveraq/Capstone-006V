@@ -1,22 +1,11 @@
 <ion-app>
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button *ngIf="!logeado()" routerLink="/crear-junta">
-          <ion-icon name="people-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-      <ion-title>Principal</ion-title>
-      <ion-buttons slot="end">
-        <ion-button>
-          <ion-icon name="notifications-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-content>
+    <div class="header-container"> 
+      <div class="user-icon-container">
+        <ion-icon name="person-circle-sharp" class="user-icon"></ion-icon>
+      </div>
+      <img src="https://i.postimg.cc/nh76z4Nf/logo.png" alt="Logo" class="logo"> 
+    </div>
 
     <div class="busqueda">
       <ion-searchbar placeholder="Busca tu junta" [(ngModel)]="searchTerm" (ionInput)="debounceFilter()"></ion-searchbar>
@@ -32,55 +21,113 @@
       </ion-list>
     </section>
 
-    <h2>Últimas noticias</h2>
+    <!-- Ion Segment para navegar entre secciones -->
+    <ion-segment [(ngModel)]="selectedSegment">
+      <ion-segment-button value="noticias">Noticias</ion-segment-button>
+      <ion-segment-button value="reuniones">Reuniones</ion-segment-button>
+      <ion-segment-button value="votaciones">Votaciones</ion-segment-button>
+      <ion-segment-button value="proyecto">Proyecto</ion-segment-button>
+    </ion-segment>
 
-    <swiper-container autoplay="true" pagination="true" navigation="true" class="mySwiper">
-      <ng-container *ngFor="let publicacion of publicaciones">
-        <swiper-slide >
-          <img class="imagenes" [src]="publicacion.imagen" alt="Imagen de la publicación" />  
-          <div class="noticia-content">  
-            <h3>{{ publicacion.titulo }}</h3>
-            <p>{{ publicacion.contenido }}</p>
+    <!-- Contenido de Noticias -->
+    <div *ngIf="selectedSegment === 'noticias'">
+      <swiper-container autoplay="true" loop="true" slides-per-view="1.2" space-between="10" class="noticiaa">
+        <ng-container *ngFor="let publicacion of publicaciones">
+          <swiper-slide>
+            <div class="card-wrapper"> 
+              <div class="imagen-contenedor">
+                <img class="imagen-noticia" [src]="publicacion.imagen" class="carta-imagen" alt="Imagen de la carta" /> 
+              </div>
+              <ion-card class="carta"> 
+                <ion-card-header>
+                  <ion-card-title>{{ publicacion.titulo }}</ion-card-title>
+                  <ion-card-subtitle>{{ publicacion.autor }}</ion-card-subtitle>
+                  <ion-card-subtitle>{{ publicacion.fechaCreacion | date }}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  {{ publicacion.contenido }}
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </swiper-slide>
+        </ng-container>
+      </swiper-container>
+    </div>
+
+    <!-- Contenido de Reuniones -->
+    <div *ngIf="selectedSegment === 'reuniones'">
+      <swiper-container autoplay="true" loop="true" slides-per-view="1.2" space-between="10" class="noticiaa">
+        <ng-container *ngFor="let reunion of reuniones">
+          <swiper-slide>
+            <div class="card-wrapper reunion-card"> 
+              <div class="imagen-contenedor">
+                <img class="imagen-noticia" src="https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png" class="carta-imagen" alt="Imagen de la carta" /> 
+              </div>
+              <ion-card class="carta"> 
+                <ion-card-header>
+                  <ion-card-title>{{ reunion.tema }}</ion-card-title>
+                  <ion-card-subtitle><p>{{ reunion.fecha | date:'short' }}</p></ion-card-subtitle>
+                  <ion-card-subtitle><p><strong>Total Asistentes:</strong> {{ reunion.total_asistentes }}</p></ion-card-subtitle>
+                  <ion-card-subtitle><p><strong>Total No Asistentes:</strong> {{ reunion.total_no_asistentes }}</p></ion-card-subtitle>
+                </ion-card-header>
+                  <h1 class="asistencia">¿Asistiras?</h1>
+                <div class="button-group">
+                  <ion-button color="success" (click)="confirmarAsistencia(reunion.id_reunion, true)">Si</ion-button>
+                  <ion-button color="danger" (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
+                </div>
+              </ion-card>
+            </div>
+          </swiper-slide>
+        </ng-container>
+      </swiper-container>
+    </div>
+
+
+
+    <!-- Contenido de Votaciones -->
+    <div *ngIf="selectedSegment === 'votaciones'">
+      <ion-list>
+        <ion-item *ngFor="let votacion of votaciones">
+          <div class="card-wrapper"> 
+            <div class="imagen-contenedor"> 
+              <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="carta-imagen" alt="Imagen de votación"/>
+            </div>
+            <ion-card class="carta"> 
+              <ion-card-header>
+                <ion-card-title>{{ votacion.titulo }}</ion-card-title>
+                <ion-card-subtitle>Votación Activa</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                {{ votacion.descripcion }}
+              </ion-card-content>
+            </ion-card>
           </div>
-        </swiper-slide>
-      </ng-container>
-    </swiper-container>
-
-
-    <div *ngIf="publicaciones.length === 0">
-      <p>No hay publicaciones disponibles.</p>
+        </ion-item>
+      </ion-list>
     </div>
 
-    <h2>Anuncios</h2>
-    <ion-list>
-      <ion-item *ngFor="let reunion of reuniones">
-        <ion-avatar slot="start"
-          style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></ion-avatar>
-        <ion-label>
-          <h2>{{ reunion.tema }}</h2>
-          <p>{{ reunion.fecha | date:'short' }}</p>
-          <p><strong>Total Asistentes:</strong> {{ reunion.total_asistentes }}</p>
-          <p><strong>Total No Asistentes:</strong> {{ reunion.total_no_asistentes }}</p>
-        </ion-label>
-        <div class="button-group">
-          <ion-button color="success" (click)="confirmarAsistencia(reunion.id_reunion, true)">Sí</ion-button>
-          <ion-button color="danger" (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
-        </div>
-      </ion-item>
-    </ion-list>
-
-    <h2>Proyectos</h2>
-    <div class="proyectos">
-      <div class="proyecto"
-        style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');">
-      </div>
-      <div class="proyecto"
-        style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');">
-      </div>
-      <div class="proyecto"
-        style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');">
-      </div>
+    <!-- Contenido de Proyecto -->
+    <div *ngIf="selectedSegment === 'proyecto'">
+      <ion-list>
+        <ion-item *ngFor="let proyecto of proyectos">
+          <div class="card-wrapper"> 
+            <div class="imagen-contenedor"> 
+              <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="carta-imagen" alt="Imagen de proyecto"/>
+            </div>
+            <ion-card class="carta"> 
+              <ion-card-header>
+                <ion-card-title>{{ proyecto.nombre }}</ion-card-title>
+                <ion-card-subtitle>Proyecto en curso</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                {{ proyecto.descripcion }}
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-item>
+      </ion-list>
     </div>
+
   </ion-content>
 
   <ion-footer>
@@ -107,5 +154,54 @@
       </div>
     </ion-toolbar>
   </ion-footer>
-
 </ion-app>
+
+
+
+
+  <!--
+    <div class="noticiaa" *ngIf="publicaciones.length > 0">
+      <h3>Noticias</h3>
+      <ion-list>
+        <ion-card *ngFor="let publicacion of publicaciones">
+          <ion-card-header>
+            <ion-card-title>{{ publicacion.titulo }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <img class="imagen-noticia" [src]="publicacion.imagen" alt="Imagen de la publicación" />
+            <p>{{ publicacion.contenido }}</p>
+            <p><strong>Autor:</strong> {{ publicacion.autor }}</p>
+            <p><strong>Fecha de creación:</strong> {{ publicacion.fechaCreacion | date }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+    </div>
+    
+    <div *ngIf="publicaciones.length === 0">
+      <p>No hay publicaciones disponibles.</p>
+    </div>
+        
+
+    <h2>Reuniones</h2>
+    <ion-list>
+      <ion-item *ngFor="let reunion of reuniones">
+        <ion-avatar slot="start"
+          style="background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');"></ion-avatar>
+        <ion-label>
+          <h2>{{ reunion.tema }}</h2>
+          <p>{{ reunion.fecha | date:'short' }}</p>
+          <p><strong>Total Asistentes:</strong> {{ reunion.total_asistentes }}</p>
+          <p><strong>Total No Asistentes:</strong> {{ reunion.total_no_asistentes }}</p>
+        </ion-label>
+        <div class="button-group">
+          <ion-button color="success" (click)="confirmarAsistencia(reunion.id_reunion, true)">Sí</ion-button>
+          <ion-button color="danger" (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div *ngIf="publicaciones.length === 0">
+      <p>No hay publicaciones disponibles.</p>
+    </div>
+
+    -->

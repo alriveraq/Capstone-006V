@@ -54,6 +54,23 @@
     </ng-container>
   </div>
 
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button >
+        <ion-icon name="document"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button routerLink="/c-publicacion"> 
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button routerLink="/peticion" >
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
   <ion-footer>
     <ion-toolbar>
       <ion-button expand="full" color="primary">
