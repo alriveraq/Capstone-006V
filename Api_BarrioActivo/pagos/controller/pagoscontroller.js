@@ -49,5 +49,21 @@ async function obtenerpagos(req, res) {
     }
 }
 
+async function actualuzarestadopago(req, res) {
+    const { u_id_registos_pago, u_estado_pago } = req.body;
 
-module.exports = { crearpagos, registrarpago, obtenerpagos };
+    console.log('Datos recibidos:', { u_id_registos_pago, u_estado_pago });
+
+    try {
+        const result = await pagosservice.actualuzarestadopago(u_id_registos_pago, u_estado_pago);
+        res.status(200).json(result); 
+    } catch (error) {
+        return res.status(500).json({
+            code: error.code || 'INTERNAL_ERROR',
+            message: error.message || 'Error interno en el servidor',
+        });
+    }
+}
+
+
+module.exports = { crearpagos, registrarpago, obtenerpagos, actualuzarestadopago };

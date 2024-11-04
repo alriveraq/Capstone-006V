@@ -160,11 +160,62 @@ WHERE
         }
     }
 }
+
+async function actualuzarestadopago(u_id_registos_pago, u_estado_pago){
+    let connection;
+
+    try {
+        console.log('Actualizando estado de pago:', {
+            u_id_registos_pago,
+            u_estado_pago
+        });
+        connection = await db.getConnection();
+        const result = await connection.execute(
+            `CALL PL_ACTUALIZAR_REGISTRO_DE_PAGO(
+                :id_registro_pago, 
+                :estado_pago, 
+                :mensaje, 
+                :error_code)`,
+            {
+                id_registro_pago: { val: u_id_registos_pago, dir: oracle.BIND_IN },
+                estado_pago: { val: u_estado_pago, dir: oracle.BIND_IN },
+                mensaje: { dir: oracle.BIND_OUT, type: oracle.STRING },
+                error_code: { dir: oracle.BIND_OUT, type: oracle.STRING }
+            }
+        );
+
+        const u_mensaje = result.outBinds.mensaje;
+        const u_error_code = result.outBinds.error_code;
+
+        if (u_error_code) {
+            return Promise.reject({
+                code: u_error_code,
+                message: u_mensaje
+            });
+        } else {
+            return {
+                message: u_mensaje
+            };
+        }
+
+    } catch (error) {
+        console.error('Error executing stored procedure from repository:', error);
+        throw new Error('Internal Server Error from repository');
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing the connection:', err);
+            }
+        }
+    }
+}
     
     
 
 
 
 module.exports = {
-    crearpagos, registrarpago, obtenerpagos
+    crearpagos, registrarpago, obtenerpagos, actualuzarestadopago
 };

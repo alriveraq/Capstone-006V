@@ -24,6 +24,16 @@ async function obtenerpagos(id_usuario) {
     }
 }
 
+
+async function actualuzarestadopago(u_id_registos_pago, u_estado_pago) {
+    try {
+        return await pagosrepository.actualuzarestadopago(u_id_registos_pago, u_estado_pago);
+    } catch (error) {
+        throw error;
+    }
+    
+}
+
 module.exports = {
-    crearpagos, registrarpago, obtenerpagos
+    crearpagos, registrarpago, obtenerpagos, actualuzarestadopago
 };

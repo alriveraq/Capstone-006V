@@ -9,4 +9,7 @@ router.post('/pagos/registrarpago', pagoscontroller.registrarpago);
 
 router.get('/pagos/obtenerpagos/:id_usuario', pagoscontroller.obtenerpagos);
 
+router.put('/pagos/actualuzarestadopago', pagoscontroller.actualuzarestadopago);
+
+
 module.exports = router;
