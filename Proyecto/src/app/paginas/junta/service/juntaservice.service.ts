@@ -71,7 +71,7 @@ export class JuntaService {
   }
 
   getVotaciones(id_usuario: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}votaciones/obtenervotaciones/${id_usuario}`);
+    return this.http.get(`${this.baseUrl}/votaciones/obtenervotaciones/${id_usuario}`);
   }  
   
   registrarvotos(id_usuario: number, id_votacion: number, u_voto: number ): Observable<any> {

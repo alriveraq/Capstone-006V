@@ -31,9 +31,9 @@
 
     <!-- Contenido de Noticias -->
     <div *ngIf="selectedSegment === 'noticias'">
-      <swiper-container autoplay="true" loop="true" slides-per-view="1.2" space-between="10" class="noticiaa">
+      <ion-list>
         <ng-container *ngFor="let publicacion of publicaciones">
-          <swiper-slide>
+          <ion-item>
             <div class="card-wrapper"> 
               <div class="imagen-contenedor">
                 <img class="imagen-noticia" [src]="publicacion.imagen" class="carta-imagen" alt="Imagen de la carta" /> 
@@ -49,9 +49,9 @@
                 </ion-card-content>
               </ion-card>
             </div>
-          </swiper-slide>
+          </ion-item>
         </ng-container>
-      </swiper-container>
+      </ion-list>
     </div>
 
     <!-- Contenido de Reuniones -->
@@ -70,7 +70,7 @@
                   <ion-card-subtitle><p><strong>Total Asistentes:</strong> {{ reunion.total_asistentes }}</p></ion-card-subtitle>
                   <ion-card-subtitle><p><strong>Total No Asistentes:</strong> {{ reunion.total_no_asistentes }}</p></ion-card-subtitle>
                 </ion-card-header>
-                  <h1 class="asistencia">¿Asistiras?</h1>
+                <h1 class="asistencia">¿Asistiras?</h1>
                 <div class="button-group">
                   <ion-button color="success" (click)="confirmarAsistencia(reunion.id_reunion, true)">Si</ion-button>
                   <ion-button color="danger" (click)="confirmarAsistencia(reunion.id_reunion, false)">No</ion-button>
@@ -81,8 +81,6 @@
         </ng-container>
       </swiper-container>
     </div>
-
-
 
     <!-- Contenido de Votaciones -->
     <div *ngIf="selectedSegment === 'votaciones'">
@@ -109,25 +107,26 @@
     <!-- Contenido de Proyecto -->
     <div *ngIf="selectedSegment === 'proyecto'">
       <ion-list>
-        <ion-item *ngFor="let proyecto of proyectos">
-          <div class="card-wrapper"> 
-            <div class="imagen-contenedor"> 
-              <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="carta-imagen" alt="Imagen de proyecto"/>
+        <ng-container *ngFor="let proyecto of proyectos">
+          <ion-item>
+            <div class="card-wrapper"> 
+              <div class="imagen-contenedor"> 
+                <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="carta-imagen" alt="Imagen de proyecto"/>
+              </div>
+              <ion-card class="carta"> 
+                <ion-card-header>
+                  <ion-card-title>{{ proyecto.nombre }}</ion-card-title>
+                  <ion-card-subtitle>Proyecto en curso</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  {{ proyecto.descripcion }}
+                </ion-card-content>
+              </ion-card>
             </div>
-            <ion-card class="carta"> 
-              <ion-card-header>
-                <ion-card-title>{{ proyecto.nombre }}</ion-card-title>
-                <ion-card-subtitle>Proyecto en curso</ion-card-subtitle>
-              </ion-card-header>
-              <ion-card-content>
-                {{ proyecto.descripcion }}
-              </ion-card-content>
-            </ion-card>
-          </div>
-        </ion-item>
+          </ion-item>
+        </ng-container>
       </ion-list>
     </div>
-
   </ion-content>
 
   <ion-footer>
@@ -155,6 +154,7 @@
     </ion-toolbar>
   </ion-footer>
 </ion-app>
+
 
 
 

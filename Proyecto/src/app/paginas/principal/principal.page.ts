@@ -56,6 +56,7 @@ export class PrincipalPage implements OnInit {
     this.obtenerJuntas();
     this.obtenerPublicaciones();
     this.obtenerReuniones();
+    this.obtenerVotaciones();
   }
 
   obtenerJuntas() {
@@ -193,27 +194,77 @@ export class PrincipalPage implements OnInit {
 
   obtenerVotaciones() {
     const id_usuario = localStorage.getItem('id_usuario');
+    
     if (id_usuario) {
       this.api.getVotaciones(id_usuario).subscribe(
         (data) => {
           console.log('Votaciones:', data);
-          this.reuniones = data.map((votacionArray: any) => ({
-            tema: votacionArray[0],
-            fecha_inicio: new Date(votacionArray[1]),
-            fecha_fin: new Date(votacionArray[2]),
-            total_asistentes: votacionArray[3],
-            total_no_asistentes: votacionArray[4],
-            id_reunion: votacionArray[5],
-          }));
+
+          // Validación de formato de datos y mapeo de los datos de votación
+          if (Array.isArray(data)) {
+            this.votaciones = data.map((votacionArray: any) => ({
+              tema: votacionArray[0],
+              fecha_inicio: votacionArray[1] ? new Date(votacionArray[1]) : null,
+              fecha_fin: votacionArray[2] ? new Date(votacionArray[2]) : null,
+              total_asistentes: votacionArray[3],
+              total_no_asistentes: votacionArray[4],
+              id_reunion: votacionArray[5],
+              id_votacion: votacionArray[6]  // Campo adicional si necesitas el ID de votación
+            }));
+          } else {
+            console.error('Formato inesperado de datos para votaciones:', data);
+          }
         },
         (error) => {
-          console.error('Error al obtener las reuniones:', error);
+          console.error('Error al obtener las votaciones:', error);
         }
       );
     } else {
       console.error('No se encontró la ID del usuario en localStorage');
     }
   }
+
+  async confirmarvotacion(id_votacion: number, u_voto: boolean) {
+    const alert = await this.alertController.create({
+      header: u_voto ? 'Voto Si' : 'Voto no',
+      message: `¿Estás seguro de que deseas registrar tu asistencia como ${u_voto ? 'Sí' : 'No'}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.registrarvoto(id_votacion, u_voto);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  registrarvoto(id_votacion: number, u_voto: boolean) {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (id_usuario) {
+      this.api.registrarvotos(Number(id_usuario), id_votacion, u_voto ? 1 : 0).subscribe(
+        (response) => {
+          console.log('Asistencia registrada:', response);
+          this.obtenerReuniones(); // Actualiza la lista de reuniones
+        },
+        (error) => {
+          console.error('Error al registrar asistencia:', error);
+        }
+      );
+    } else {
+      console.error('No se encontró la ID del usuario en localStorage');
+    }
+  }
+
 
 
 
