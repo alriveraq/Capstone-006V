@@ -204,11 +204,11 @@ export class PrincipalPage implements OnInit {
           if (Array.isArray(data)) {
             this.votaciones = data.map((votacionArray: any) => ({
               tema: votacionArray[0],
-              fecha_inicio: votacionArray[1] ? new Date(votacionArray[1]) : null,
-              fecha_fin: votacionArray[2] ? new Date(votacionArray[2]) : null,
-              total_asistentes: votacionArray[3],
-              total_no_asistentes: votacionArray[4],
-              id_reunion: votacionArray[5],
+              fecha_inicio: new Date(votacionArray[1]),
+              fecha_fin: new Date (votacionArray[2]),
+              votos_favor: votacionArray[3],
+              votos_contra: votacionArray[4],
+              abstenciones: votacionArray[5],
               id_votacion: votacionArray[6]  // Campo adicional si necesitas el ID de votación
             }));
           } else {

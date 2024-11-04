@@ -86,18 +86,19 @@
     <div *ngIf="selectedSegment === 'votaciones'">
       <ion-list>
         <ion-item *ngFor="let votacion of votaciones">
-          <div class="card-wrapper"> 
-            <div class="imagen-contenedor"> 
-              <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="carta-imagen" alt="Imagen de votación"/>
+          <div class="card-wrapper reunion-card">  
+            <div class="imagen-contenedor">
+              <img class="imagen-noticia" src="https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png" class="carta-imagen" alt="Imagen de la carta" /> 
             </div>
             <ion-card class="carta"> 
               <ion-card-header>
-                <ion-card-title>{{ votacion.titulo }}</ion-card-title>
-                <ion-card-subtitle>Votación Activa</ion-card-subtitle>
+                <ion-card-title>{{ votacion.tema }}</ion-card-title>
+                <ion-card-subtitle>Inicio {{votacion.fecha_inicio | date:'short'}}</ion-card-subtitle>
+                <ion-card-subtitle>Termino {{votacion.fecha_fin | date:'short'}}</ion-card-subtitle>
+                <ion-card-subtitle>Votos a favor: {{ votacion.votos_favor }}</ion-card-subtitle>
+                <ion-card-subtitle>Votos en contra: {{ votacion.votos_contra }}</ion-card-subtitle>
+                <ion-card-subtitle>Abstenciones: {{ votacion.abstenciones }}</ion-card-subtitle>
               </ion-card-header>
-              <ion-card-content>
-                {{ votacion.descripcion }}
-              </ion-card-content>
             </ion-card>
           </div>
         </ion-item>
