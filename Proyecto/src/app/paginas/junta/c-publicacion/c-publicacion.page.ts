@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { publicaciones } from '../interface/publicacion';
 import { reunion } from '../interface/reunion';
+import { votacion } from '../interface/votacion';
 import { JuntaService } from '../service/juntaservice.service';
 import { Router } from '@angular/router';
 
@@ -15,6 +16,7 @@ export class CPublicacionPage implements OnInit {
   errormessage: string = '';
   publicacionform!: FormGroup;
   reunionform!: FormGroup;
+  votacionform!: FormGroup;
   selectedImage: File | null = null;
   enviarPorCorreo: boolean = false; 
   tipoEntrada: string = 'noticia';
@@ -39,6 +41,13 @@ export class CPublicacionPage implements OnInit {
     this.reunionform = this.formBuilder.group({
       'tema': ['', [Validators.required]],
       'u_fecha_reunion': ['', [Validators.required]],
+      'enviarPorCorreo': [false],
+    });
+
+    this.votacionform = this.formBuilder.group({
+      'tema': ['', [Validators.required]],
+      'fecha_inicio': ['', [Validators.required]],
+      'fecha_fin': ['', [Validators.required]],
       'enviarPorCorreo': [false],
     });
   }
@@ -68,19 +77,11 @@ export class CPublicacionPage implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  cambiarFormulario() {
-  }
+  cambiarFormulario() {}
 
   async cPublicacion() {
     if (this.publicacionform.invalid) {
-      if (this.publicacionform.get('titulo')?.hasError('required')) {
-        this.errormessage = 'El título es obligatorio.';
-      }
-      if (this.publicacionform.get('imagen')?.hasError('required')) {
-        this.errormessage = 'La imagen es obligatoria.';
-      } else if (this.publicacionform.get('contenido')?.hasError('required')) {
-        this.errormessage = 'El contenido es obligatorio.';
-      }
+      this.errormessage = 'Por favor completa todos los campos obligatorios.';
       return;
     }
 
@@ -93,33 +94,27 @@ export class CPublicacionPage implements OnInit {
 
     console.log('Datos a enviar:', publicacionData);
 
-    this.api
-      .creacionPublicacion(
-        publicacionData.id_junta,
-        publicacionData.id_usuario,
-        publicacionData.titulo,
-        publicacionData.contenido,
-        publicacionData.imagen,
-        publicacionData.enviarCorreo
-      )
-      .subscribe(
-        async (response) => {
-          console.log('Respuesta de la API:', response);
-          this.router.navigate(['/principal']);
-        },
-        async (error) => {
-          console.error('Error de la API:', error);
-        }
-      );
+    this.api.creacionPublicacion(
+      publicacionData.id_junta,
+      publicacionData.id_usuario,
+      publicacionData.titulo,
+      publicacionData.contenido,
+      publicacionData.imagen,
+      publicacionData.enviarCorreo
+    ).subscribe(
+      async (response) => {
+        console.log('Respuesta de la API:', response);
+        this.router.navigate(['/principal']);
+      },
+      async (error) => {
+        console.error('Error de la API:', error);
+      }
+    );
   }
 
   async cReunion() {
     if (this.reunionform.invalid) {
-      if (this.reunionform.get('tema')?.hasError('required')) {
-        this.errormessage = 'El tema es obligatorio.';
-      } else if (this.reunionform.get('u_fecha_reunion')?.hasError('required')) {
-        this.errormessage = 'La fecha de la reunión es obligatoria.';
-      }
+      this.errormessage = 'Por favor completa todos los campos obligatorios.';
       return;
     }
 
@@ -133,23 +128,68 @@ export class CPublicacionPage implements OnInit {
 
     console.log('Datos a enviar:', reunionData);
 
-    this.api
-      .crearReunion(
-        reunionData.id_junta,
-        reunionData.id_usuario,
-        reunionData.tema,
-        reunionData.resumen,
-        new Date(reunionData.u_fecha_reunion),
-        reunionData.enviarCorreo,
-      ).subscribe(
-        async (response) => {
-          console.log('Respuesta de la API:', response);
-          this.router.navigate(['/principal']);
-        },
-        async (error) => {
-          console.error('Error de la API:', error);
-        }
-      );
-}
+    this.api.crearReunion(
+      reunionData.id_junta,
+      reunionData.id_usuario,
+      reunionData.tema,
+      reunionData.resumen,
+      new Date(reunionData.u_fecha_reunion),
+      reunionData.enviarCorreo,
+    ).subscribe(
+      async (response) => {
+        console.log('Respuesta de la API:', response);
+        this.router.navigate(['/principal']);
+      },
+      async (error) => {
+        console.error('Error de la API:', error);
+      }
+    );
+  }
+  async cVotacion() {
+    if (this.votacionform.invalid) {
+      this.errormessage = 'Por favor completa todos los campos obligatorios.';
+      return;
+    }
+
+    const votacionData: votacion = {
+      ...this.votacionform.value,
+      id_usuario: localStorage.getItem('id_usuario'),
+      id_junta: localStorage.getItem('id_junta'),
+      resumen: ' ',
+      enviarCorreo: this.votacionform.value.enviarPorCorreo, 
+    };
+
+    console.log('Datos a enviar:', votacionData);
+
+    this.api.crearVotacion(
+      votacionData.id_junta,
+      votacionData.id_usuario,
+      votacionData.tema,
+      new Date(votacionData.fecha_inicio),
+      new Date(votacionData.fecha_fin),
+      votacionData.enviarCorreo,
+    ).subscribe(
+      async (response) => {
+        console.log('Respuesta de la API:', response);
+        this.router.navigate(['/principal']);
+      },
+      async (error) => {
+        console.error('Error de la API:', error);
+      }
+    );
+  }
+ 
+
+  enviarPublicacion() {
+    if (this.tipoEntrada === 'noticia') {
+      this.cPublicacion();
+    } else if (this.tipoEntrada === 'reunion') {
+      this.cReunion();
+    } else if (this.tipoEntrada === 'votacion') {
+      this.cVotacion();
+    }
+  }
+
+
 
 }

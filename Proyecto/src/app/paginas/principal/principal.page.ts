@@ -15,6 +15,7 @@ register();
   styleUrls: ['./principal.page.scss'],
 })
 export class PrincipalPage implements OnInit {
+  selectedSegment: string = 'noticias'; 
   slideIndex = 0;
   public searchTerm: string = '';
   public filteredjuntas: any[] = [];
@@ -22,6 +23,8 @@ export class PrincipalPage implements OnInit {
   public juntas: any[] = [];
   public publicaciones: any[] = [];
   public reuniones: any[] = [];
+  public proyectos: any[] = [];
+  public votaciones: any[] = [];
   constructor(private login: LoginserviceService, 
               private router: Router,
               private api: JuntaService,
@@ -186,4 +189,33 @@ export class PrincipalPage implements OnInit {
       console.error('No se encontró la ID del usuario en localStorage');
     }
   }
+
+
+  obtenerVotaciones() {
+    const id_usuario = localStorage.getItem('id_usuario');
+    if (id_usuario) {
+      this.api.getVotaciones(id_usuario).subscribe(
+        (data) => {
+          console.log('Votaciones:', data);
+          this.reuniones = data.map((votacionArray: any) => ({
+            tema: votacionArray[0],
+            fecha_inicio: new Date(votacionArray[1]),
+            fecha_fin: new Date(votacionArray[2]),
+            total_asistentes: votacionArray[3],
+            total_no_asistentes: votacionArray[4],
+            id_reunion: votacionArray[5],
+          }));
+        },
+        (error) => {
+          console.error('Error al obtener las reuniones:', error);
+        }
+      );
+    } else {
+      console.error('No se encontró la ID del usuario en localStorage');
+    }
+  }
+
+
+
+
 }

@@ -19,6 +19,7 @@
         <ion-select [(ngModel)]="tipoEntrada" (ionChange)="cambiarFormulario()">
           <ion-select-option value="noticia">Noticia</ion-select-option>
           <ion-select-option value="reunion">Reunión</ion-select-option>
+          <ion-select-option value="votacion">Votación</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -49,7 +50,27 @@
         </ion-item>
         <ion-item class="color">
           <ion-label position="floating">Fecha y Hora</ion-label>
-          <ion-datetime formControlName="u_fecha_reunion"></ion-datetime>
+          <ion-datetime 
+            formControlName="u_fecha_reunion"></ion-datetime>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label>¿Desea recibir información en su correo?</ion-label>
+          <ion-checkbox formControlName="enviarPorCorreo"></ion-checkbox>
+        </ion-item>
+      </form>
+
+      <form *ngIf="tipoEntrada === 'votacion'" [formGroup]="votacionform">
+        <ion-item class="color">
+          <ion-label position="floating">Título</ion-label>
+          <ion-input formControlName="tema" placeholder="Ingrese Título"></ion-input>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Fecha de inicio</ion-label>
+          <ion-datetime formControlName="fecha_inicio" ></ion-datetime>
+        </ion-item>
+        <ion-item class="color">
+          <ion-label position="floating">Fecha de fin</ion-label>
+          <ion-datetime formControlName="fecha_fin"></ion-datetime>
         </ion-item>
         <ion-item class="color">
           <ion-label>¿Desea recibir información en su correo?</ion-label>
@@ -58,7 +79,7 @@
       </form>
 
       <div class="botones">
-        <ion-button expand="full" color="primary" (click)="tipoEntrada === 'noticia' ? cPublicacion() : cReunion()">
+        <ion-button expand="full" color="primary" (click)="enviarPublicacion()">
           Enviar
         </ion-button>
       </div>

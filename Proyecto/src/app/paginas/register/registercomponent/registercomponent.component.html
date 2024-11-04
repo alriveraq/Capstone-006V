@@ -10,7 +10,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="banner">
+  <ion-content class="cont">
+    <div class="banner">
+      <div class="overlay"></div> <!-- Opcional: si necesitas una superposición oscura -->
+      <div class="logo">
+        <img src="https://i.postimg.cc/nh76z4Nf/logo.png" alt="logo">
+      </div>
+    </div>
     <div class="contenido">
       <h1 class="titulo">Te estás Registrando en BarrioActivo</h1>
 
@@ -41,7 +47,7 @@
         </ion-item>
         <ion-item class="color">
           <ion-label position="floating">Confirmar Contraseña</ion-label>
-          <ion-input type="password" placeholder="Ingresar Contraseña" formControlName="confirmarContrasena"></ion-input>
+          <ion-input type="password" placeholder="Confirmar Contraseña" formControlName="confirmarContrasena"></ion-input>
         </ion-item>
 
         <div class="botones">
@@ -53,6 +59,5 @@
         <p class="terminos">Al continuar, aceptas los Términos de uso. Lea nuestra Política de Privacidad.</p>
       </form>
     </div>
-  </div>
+  </ion-content>
 </ion-app>
-

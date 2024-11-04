@@ -1,22 +1,55 @@
 .banner {
-  background-image: url('https://civantoscomunidades.com/wp-content/uploads/2020/06/dudas_sobre_el_presupueto_reunion_digitalmanetenimientos-800x600.png');
+  background-image: url('https://i.postimg.cc/tgdQr3zN/imagen-2024-10-30-152059754.png');
   background-size: cover;
-  background-position: center;
+  background-position: top center; 
   background-repeat: no-repeat;
-  height: 100vh; 
+  height: 500px; 
   display: flex; 
   align-items: center; 
   justify-content: center; 
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+  overflow: hidden; 
+  position: relative; 
+}
+
+.logo {
+  position: absolute; 
+  top: 100px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 3; 
+}
+
+.logo img {
+  width: 350px !important; 
+  height: auto; 
+  max-width: none; 
+}
+
+
+
+ion-content {
+  --background: rgba(0, 0, 0, 0.1); 
 }
 
 .contenido {
-  padding: 20px;
+  bottom: 100px;
+  position: relative; 
+  padding: 80px 20px;
   background: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  margin: 20px;
-  width: 100%; 
-  max-width: 400px; 
+  margin: -50px auto 0; 
+  width: 80%;
+  max-width: 400px;
+  color: #333;
+  z-index: 2; 
+}
+
+.h1{
+  bottom: 800px;
+  position: relative;
 }
 
 
