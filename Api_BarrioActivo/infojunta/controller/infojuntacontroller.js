@@ -39,7 +39,7 @@ const obtenerTodasLasJuntasController = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
-
+    
 
 async function solicitarUnionJuntaController(req, res) {
     const { u_id_usuario, u_id_presidente_junta, u_id_junta, u_estado, u_fecha_solicitud} = req.body;

@@ -84,13 +84,17 @@ async function solicitarUnionJunta(u_id_usuario, u_id_presidente_junta, u_id_jun
     let connection;
 
     try {
+        // Convertimos la fecha a un formato compatible con Oracle antes de la consulta
+        const formattedDate = new Date(u_fecha_solicitud).toISOString().slice(0, 19).replace('T', ' ');
+
         console.log('Solicitando unión a junta:', {
             u_id_usuario,
             u_id_presidente_junta,
             u_id_junta,
             u_estado,
-            u_fecha_solicitud
-        }); 
+            fecha_solicitud: formattedDate
+        });
+
         connection = await db.getConnection();
         const result = await connection.execute(
             `CALL PL_SOLICITUD_JUNTA(
@@ -98,18 +102,18 @@ async function solicitarUnionJunta(u_id_usuario, u_id_presidente_junta, u_id_jun
                 :id_presidente_junta, 
                 :id_junta, 
                 :estado, 
-                :fecha_solicitud,
+                TO_DATE(:fecha_solicitud, 'YYYY-MM-DD HH24:MI:SS'),
                 :mensaje,
                 :error_code)`,
-                {
-                    id_usuario: { val: u_id_usuario, dir: oracle.BIND_IN },
-                    id_presidente_junta: { val: u_id_presidente_junta, dir: oracle.BIND_IN },
-                    id_junta: { val: u_id_junta, dir: oracle.BIND_IN },
-                    estado: { val: u_estado, dir: oracle.BIND_IN },
-                    fecha_solicitud: { val: u_fecha_solicitud, dir: oracle.BIND_IN },
-                    mensaje: { dir: oracle.BIND_OUT, type: oracle.STRING },
-                    error_code: { dir: oracle.BIND_OUT, type: oracle.STRING }
-                }
+            {
+                id_usuario: { val: u_id_usuario, dir: oracle.BIND_IN },
+                id_presidente_junta: { val: u_id_presidente_junta, dir: oracle.BIND_IN },
+                id_junta: { val: u_id_junta, dir: oracle.BIND_IN },
+                estado: { val: u_estado, dir: oracle.BIND_IN },
+                fecha_solicitud: { val: formattedDate, dir: oracle.BIND_IN },
+                mensaje: { dir: oracle.BIND_OUT, type: oracle.STRING },
+                error_code: { dir: oracle.BIND_OUT, type: oracle.STRING }
+            }
         );
 
         const u_mensaje = result.outBinds.mensaje;
@@ -134,6 +138,8 @@ async function solicitarUnionJunta(u_id_usuario, u_id_presidente_junta, u_id_jun
         }
     }
 }
+
+
 
 // Actualizar el estado de la solicitud de unión a junta
 async function actualizarEstadoSolicitudUnionJunta(id_solicitud_union, estado) {

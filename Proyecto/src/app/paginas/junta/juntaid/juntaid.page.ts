@@ -28,7 +28,7 @@ export class JuntaidPage implements OnInit {
         } else {
           console.log('Información de la junta:', data);
           this.titulo = data.informacion[0][0]; // Nombre de la junta
-          this.idPresidente = data.informacion[0][3]; // ID del presidente
+          this.idPresidente = data.informacion[0][4]; // ID del presidente
 
           this.usuarios = data.usuarios.map((usuarioArray: any) => ({
             nombre: usuarioArray[0],
@@ -72,7 +72,7 @@ export class JuntaidPage implements OnInit {
       },
       (error) => {
         console.error('Error al enviar la solicitud:', error);
-        alert('Usted ya se encuentra en una junta');
+        alert('Usted ya se encuentra en una junta o ya ha solicitado unirse a esta junta');
     });
   }
   
