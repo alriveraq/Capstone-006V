@@ -59,6 +59,8 @@ async function crearjunta(
     );
 
     await connection.commit();
+
+
   } catch (error) {
     console.error("Error executing stored procedure from repository:", error);
     throw new Error("Internal Server Error from repository");
@@ -72,6 +74,7 @@ async function crearjunta(
     }
   }
 }
+
 
 async function obtenerCorreosJunta(id_junta) {
   const query = `

@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Panel de Control</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="content-background">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngIf="totalJuntas">
+        <ion-card class="custom-card" routerLink="/juntas">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="people" slot="start"></ion-icon>
+              Total de Juntas
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2 class="total-number">{{ totalJuntas }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6" *ngIf="totalUsuarios">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="person" slot="start"></ion-icon>
+              Total de Usuarios
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2 class="total-number">{{ totalUsuarios }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" *ngIf="totalReuniones30Dias">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="calendar" slot="start"></ion-icon>
+              Reuniones en 30 Días
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2 class="total-number">{{ totalReuniones30Dias }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6" *ngIf="totalVotaciones">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+              Total de Votaciones
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2 class="total-number">{{ totalVotaciones }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" *ngIf="totalProyectos">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="document" slot="start"></ion-icon>
+              Total de Proyectos
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2 class="total-number">{{ totalProyectos }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

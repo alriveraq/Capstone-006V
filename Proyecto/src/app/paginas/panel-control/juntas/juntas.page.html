@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Juntas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="getJuntas()">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="juntas.length > 0; else noData">
+    <ion-item *ngFor="let junta of juntas">
+      <ion-label>
+        <h2>{{ junta.nombre }}</h2>
+        <p><strong>Dirección:</strong> {{ junta.direccion }}</p>
+        <p><strong>Fecha:</strong> {{ junta.fecha | date }}</p>
+        <p><strong>Número de Asistentes:</strong> {{ junta.asistentes }}</p>
+        <p><strong>Presidente:</strong> {{ junta.presidente }}</p>
+      </ion-label>
+      <ion-button [routerLink]="['/junta-detalle', junta.id]" slot="end">
+        Ver Detalles
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noData>
+    <ion-item>
+      <ion-label>No hay juntas disponibles.</ion-label>
+    </ion-item>
+  </ng-template>
+</ion-content>

@@ -57,6 +57,20 @@ const routes: Routes = [
     path: 'peticion',
     loadChildren: () => import('./paginas/junta/peticion/peticion.module').then( m => m.PeticionPageModule)
   },
+  {
+    path: 'panel-control',
+    loadChildren: () => import('./paginas/panel-control/panel-control.module').then( m => m.PanelControlPageModule)
+  },
+  {
+    path: 'juntas',
+    loadChildren: () => import('./paginas/panel-control/juntas/juntas.module').then( m => m.JuntasPageModule)
+  },
+  {
+    path: 'junta-detalle/:id_junta',
+    loadChildren: () => import('./paginas/panel-control/juntas/junta-detalle/junta-detalle.module').then( m => m.JuntaDetallePageModule)
+  }
+
+
 
  
 

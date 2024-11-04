@@ -1,0 +1,23 @@
+.content-background {
+    background-color: white; 
+  }
+  
+  .custom-card {
+    background-color: #87CEEB; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s;
+  }
+  
+  .total-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--ion-color-dark);
+  }
+  
+  .custom-card:hover {
+    transform: scale(1.05);
+  }
+  

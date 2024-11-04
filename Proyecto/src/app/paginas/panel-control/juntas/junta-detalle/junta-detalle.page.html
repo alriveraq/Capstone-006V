@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Detalle de Junta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <!-- Total de Usuarios -->
+      <ion-col size="12">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>Total de Usuarios</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2 class="total-number">{{ totalUsuarios }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Próxima Reunión -->
+      <ion-col size="12" *ngIf="proximaReunion">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>Próxima Reunión</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>ID:</strong> {{ proximaReunion.id }}</p>
+            <p><strong>Nombre:</strong> {{ proximaReunion.nombre }}</p>
+            <p><strong>Ubicación:</strong> {{ proximaReunion.ubicacion || 'No especificada' }}</p>
+            <p><strong>Fecha:</strong> {{ proximaReunion.fecha | date:'medium' }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Votaciones Activas -->
+      <ion-col size="12" *ngIf="votacionesActivas && votacionesActivas.length > 0">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>Votaciones Activas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div *ngFor="let votacion of votacionesActivas">
+              <p><strong>Junta:</strong> {{ votacion.nombreJunta }}</p>
+              <p><strong>Total Votaciones:</strong> {{ votacion.totalVotaciones }}</p>
+              <hr />
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Proyectos Activos -->
+      <ion-col size="12" *ngIf="proyectosActivos && proyectosActivos.length > 0">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title>Proyectos Activos</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div *ngFor="let proyecto of proyectosActivos">
+              <p><strong>Junta:</strong> {{ proyecto.nombreJunta }}</p>
+              <p><strong>Total Proyectos:</strong> {{ proyecto.totalProyectos }}</p>
+              <hr />
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
